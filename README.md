@@ -5,15 +5,16 @@ MooDialog is a MooTools plugin to replace the native alert(), confirm() and prom
 
 ![Screenshot](http://github.com/arian/MooDialog/raw/master/screenshot.png)
 
-Requirements
-------------
-
-* [MooTools Core 1.2.4](http://mootools.net/core)
-	Element.Style, Class.Extras (and their dependencies)
-* [Overlay](http://mootools.net/forge/p/overlay)
-
 How to use
 ----------
+
+First you have to include the javascript files and css file in the head of your html document
+
+	#HTML
+	<link  href="../Source/css/MooDialog.css" rel="stylesheet" type="text/css" media="screen" />
+	<script src="../Source/Overlay.js" type="text/javascript"></script>
+	<script src="../Source/MooDialog.js" type="text/javascript"></script>
+
 
 ### Alert
 
@@ -63,8 +64,9 @@ How to use
 	#JS
 	$('confirmDelete').confirmLinkClick('Are you sure you want to click this link');
 
+
 Options
----------
+-------
 
 In every last parameter you can set the following options.
 
@@ -82,4 +84,11 @@ In every last parameter you can set the following options.
 		onOpen: $empty,
 		onClose: $empty
 	}	
+
+Requirements
+------------
+
+* [MooTools Core 1.2.4](http://mootools.net/core)
+	Element.Style, Class.Extras (and their dependencies)
+* [Overlay](http://mootools.net/forge/p/overlay)
 
