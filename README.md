@@ -85,8 +85,48 @@ In every last parameter you can set the following options.
 		onClose: $empty
 	}	
 
+
+Class: MooDialog
+================
+
+Methods
+-------
+
+### setContent
+
+With this method you can set the content of the dialog.
+
+#### Syntax
+
+	#JS
+	dialog.setContent(content);
+
+#### Arguments
+
+1. content: (*string*,*element*,*number*) Put some content into the dialog
+
+#### Return 
+ - MooDialog instance
+
+### open
+With this method you open the dialog
+
+### close
+With this method you close the dialog
+
+### toElement
+This method returns the dialog wrapper element
+
+#### Syntax
+	
+	#JS
+	var myDialog = new MooDialog();
+	$(myDialog);
+
+
+
 Requirements
-------------
+============
 
 * [MooTools Core 1.2.4](http://mootools.net/core)
 * [Overlay](http://mootools.net/forge/p/overlay)
