@@ -89,6 +89,5 @@ Requirements
 ------------
 
 * [MooTools Core 1.2.4](http://mootools.net/core)
-	Element.Style, Class.Extras (and their dependencies)
 * [Overlay](http://mootools.net/forge/p/overlay)
 
