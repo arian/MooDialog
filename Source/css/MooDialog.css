@@ -1,0 +1,45 @@
+/* Gemaakt door Arian Stolwijk <http://www.aryweb.nl> */
+
+.MooDialog {
+	border: 10px solid black;
+	background: white;
+	color: black;
+	padding: 10px;
+	-moz-border-radius: 7px; 
+	-webkit-border-radius: 7px; 
+	border-radius: 7px; 
+	-mox-box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+	-webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+}
+
+.MooDialog .close {
+	background: url(dialog-close.png) no-repeat;
+	width: 16px;
+	height: 16px;
+	display: block;
+	cursor: pointer;
+}
+
+.MooDialog .buttons {
+	text-align: right;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+
+.MooDialog .MooDialogAlert, .MooDialog .MooDialogConfirm, .MooDialog .MooDialogPromt, .MooDialog .MooDialogError {
+	background: url(dialog-warning.png) no-repeat;
+	padding-left: 40px;
+	min-height: 40px;
+}
+
+.MooDialog .MooDialogConfirm, .MooDialog .MooDialogPromt {
+	background: url(dialog-question.png) no-repeat;
+}
+
+.MooDialog .MooDialogError {
+	background: url(dialog-error.png) no-repeat;
+}
+

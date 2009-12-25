@@ -1,0 +1,85 @@
+MooDialog
+===============
+
+MooDialog is a MooTools plugin to replace the native alert(), confirm() and promt() javascript functions by more stylish ones.
+
+![Screenshot](http://github.com/arian/MooDialog/raw/master/screenshot.png)
+
+Requirements
+------------
+
+* [MooTools Core 1.2.4](http://mootools.net/core)
+	Element.Style, Class.Extras (and their dependencies)
+* [Overlay](http://mootools.net/forge/p/overlay)
+
+How to use
+----------
+
+### Alert
+
+	#JS
+	new MooDialog.alert('This is an alert message');
+	
+	// Or from a string
+	('This is an alert message').alert();
+
+### Confirm
+
+	#JS
+	new MooDialog.confirm('Are you sure you want to do this?',function(){
+		new MooDialog.alert('You are!')
+	},function(){
+		new MooDialog.alert('You are not');
+	});
+	
+	// Or from a string
+	('Are you sure you want to do this?').confirm(fn1,fn2);
+
+### Prompt 
+
+	#JS
+	new MooDialog.promt('What is your name?',function(ret){
+		new MooDialog.alert('Your name is '+ ret);
+	});
+	
+	// Or from a string
+	('What is your name?').prompt(fn);
+
+### Error
+
+	#JS
+	new MooDialog.error('O No, What have you done!?');
+
+### Custom from an element
+
+	#JS
+	new Element('div',{text: 'This is a custom element'}).MooDialog();
+	
+	// Or an existing element from the DOM
+	$('el').MooDialog();
+
+### Confirm Link
+
+	#JS
+	$('confirmDelete').confirmLinkClick('Are you sure you want to click this link');
+
+Options
+---------
+
+In every last parameter you can set the following options.
+
+	#JS
+	{
+		size: {
+			width: 300,
+			height: 100
+		},
+		offset: {
+			x: 0,
+			y: -100
+		},
+		duration: 400,
+		onOpen: $empty,
+		onClose: $empty
+	}	
+
