@@ -87,7 +87,7 @@ In every last parameter you can set the following options.
 
 
 Class: MooDialog
-================
+----------------
 
 Methods
 -------
@@ -126,7 +126,7 @@ This method returns the dialog wrapper element
 
 
 Requirements
-============
+------------
 
 * [MooTools Core 1.2.4](http://mootools.net/core)
 * [Overlay](http://mootools.net/forge/p/overlay)
