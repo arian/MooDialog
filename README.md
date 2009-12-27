@@ -188,6 +188,21 @@ With this method you can set the content of the dialog.
 #### Return 
  - MooDialog instance
 
+### setPosition
+
+Set the position of the dialog
+
+#### Syntax
+	
+	#JS
+	dialog.setPosition(x,y[,relative]);
+
+#### Arguments
+
+1. x: (*number*) The number of pixels from the left of the screen (exlusive the offset, see options)
+2. y: (*number*) The number of pixels from the top of the screen (exlusive the offset, see options)
+3. relative: (*boolean*, default: true) Are the x and y arguments relative to the scroll position (should the method use Element.getScroll())
+
 ### open
 
 With this method you open the dialog
