@@ -2,6 +2,6 @@ name: MooDialog
 author: astolwijk
 current: 0.2
 category: Interface
-tags: [Dialog,Modal,Box,Alert,Confirm]
+tags: [Dialog,Modal,Box,Alert,Confirm,Ajax,IFrame]
 demo: http://www.aryweb.nl/projects/MooDialog/
 docs: http://github.com/arian/MooDialog/blob/master/README.md

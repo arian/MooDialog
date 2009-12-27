@@ -2,6 +2,7 @@ MooDialog
 ===============
 
 MooDialog is a MooTools plugin to replace the native alert(), confirm() and promt() javascript functions by more stylish ones.
+You can use it also for other DOM elements, create an IFrame dialog or even create an Ajax Dialog
 
 ![Screenshot](http://github.com/arian/MooDialog/raw/master/screenshot.png)
 
