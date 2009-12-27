@@ -12,9 +12,10 @@ requires:
   core/1.2.4:   '*'
 
 provides:
-  - [MooDialog,MooDialog.alert,MooDialog.confirm,MooDialog.prompt,MooDialog.error,Element.MooDialog,String.alert,String.confirm,String.prompt]
+  - [MooDialog,Element.MooDialog]
 ...
 */
+
 var MooDialog = new Class({
 	
 	Implements: [Options,Events],
@@ -28,16 +29,20 @@ var MooDialog = new Class({
 			x: 0,
 			y: -100
 		},
-		duration: 400/*,
+		duration: 400,
+		scroll: true,
+		useEscKey: true,
+		disposeOnClose: true/*,
 		onOpen: $empty,
-		onClose: $empty*/
+		onClose: $empty,
+		onShow: $empty,
+		onHide: $empty*/
 	},
 
 	initialize: function(options){
 		this.setOptions(options);
-		
-		var docSize = $(document.body).getSize(),
-			x = this.options.size.width,
+
+		var x = this.options.size.width,
 			y = this.options.size.height;
 		
 		this.content = new Element('div', {
@@ -68,8 +73,6 @@ var MooDialog = new Class({
 				width: x,
 				height: y,
 				position: 'absolute',
-				left: ((docSize.x - x) / 2) + this.options.offset.x,
-				top: ((docSize.y - y) / 2) + this.options.offset.y,
 				'z-index': 6000,	
 				opacity: 0
 			},
@@ -79,9 +82,26 @@ var MooDialog = new Class({
 		}).inject(document.body)
 			.adopt(this.content)
 			.adopt(this.closeButton);
-			
+		
+		// Set the position of the dialog
+		var docSize = document.id(document.body).getSize();
+		this.setPosition((docSize.x - x)/2,(docSize.y - y)/2,true);
+		
+		if(this.options.scroll){
+			window.addEvent('scroll',function(e){
+				this.setPosition((docSize.x - x)/2,(docSize.y - y)/2,true);
+			}.bind(this));
+		}
+		
+		// Add the fade in/out effects
 		this.wrapper.set('tween',{
-			duration: this.options.duration
+			duration: this.options.duration,
+			onComplete: function(){
+				this.fireEvent(this.wrapper.get('opacity') == 0 ? 'hide' : 'show');
+				if (this.options.disposeOnClose && this.wrapper.get('opacity') == 0) {
+					this.dispose();
+				}
+			}.bind(this)
 		});
 		
 		this.overlay = new Overlay(document.body, {
@@ -105,17 +125,48 @@ var MooDialog = new Class({
 		}
 		return this;
 	},
+	
+	setPosition: function(x,y,relative){
+		x = x + this.options.offset.x;
+		y = y + this.options.offset.y;
+		x = x < 10 ? 10 : x;
+		y = y < 10 ? 10 : y;
+		if(relative){
+			var scroll = document.id(document.body).getScroll();
+			x = x + scroll.x;
+			y = y + scroll.y
+		}
+		this.wrapper.setStyles({
+			left: x,
+			top: y
+		});
+		return this;
+	},
 
 	open: function(){
 		this.fireEvent('open');
 		this.wrapper.fade('in');
 		this.overlay.open();
+		
+		if(this.options.useEscKey){
+			// Add event for the esc key
+			document.id(document.body).addEvent('keydown', function(e){
+				if (e.key == 'esc') this.close();
+			}.bind(this));
+		}
+		return this;
 	},
 	
 	close: function(){
 		this.fireEvent('close');
 		this.wrapper.fade('out');
 		this.overlay.close();
+		return this;
+	},
+	
+	dispose: function(){
+		this.wrapper.dispose();
+		this.overlay.overlay.dispose();
 	},
 	
 	toElement: function(){
@@ -124,196 +175,16 @@ var MooDialog = new Class({
 	
 });
 
-MooDialog.alert = new Class({	
-	
-	Extends: MooDialog,	
-  
-	initialize: function(msg,options){
-		this.parent(options);
-		
-		this.setContent(
-			new Element('div')
-				.adopt(
-					new Element('p',{
-						'class': 'MooDialogAlert',
-						text: msg
-					})
-				).adopt(
-					new Element('div',{
-						'class': 'buttons'
-					}).adopt(
-						new Element('input',{
-							type: 'button',
-							events: {
-								click: function(){
-									this.close();
-								}.bind(this)
-							},
-							value: 'Ok'
-						})
-					)
-				)
-		);
-		this.open();
-    }
-});
 
-MooDialog.confirm = new Class({	
-	
-	Extends: MooDialog,	
-  
-	initialize: function(msg,fn,fn1,options){
-		this.parent(options);
-		
-		fn = fn ? fn : $empty;
-		fn1 = fn1 ? fn1 : $empty;
-		
-		this.setContent(
-			new Element('div')
-				.adopt(
-					new Element('p',{
-						'class': 'MooDialogConfirm',
-						text: msg
-					})
-				).adopt(
-					new Element('div',{
-						'class': 'buttons'
-					}).adopt(
-						new Element('input',{
-							type: 'button',
-							events: {
-								click: function(){
-									fn1();
-									this.close();
-								}.bind(this)
-							},
-							value: 'Cancel'
-						})
-					).adopt(
-						new Element('input',{
-							type: 'button',
-							events: {
-								click: function(){
-									fn();
-									this.close();
-								}.bind(this)
-							},
-							value: 'Ok'
-						})
-					)
-				)
-		);
-		this.open();
-	}
-});
-
-MooDialog.promt = new Class({	
-	
-	Extends: MooDialog,	
-  
-	initialize: function(msg,fn,options){
-		this.parent(options);
-
-		fn = fn ? fn : $empty;
-
-		var textInput = new Element('input',{
-			type: 'text',
-			size: 30
-		});
-
-		this.setContent(
-			new Element('div')
-				.adopt(
-					new Element('p',{
-						'class': 'MooDialogPromt',
-						text: msg
-					})
-				).adopt(
-					new Element('form',{
-						'class': 'buttons',
-						events: {
-							submit: function(e){
-								e.stop();
-								fn(textInput.get('value'));
-								this.close();
-							}.bind(this)
-						}
-					}).adopt(textInput).adopt(
-						new Element('input',{
-							type: 'submit',
-							value: 'Ok'
-						})						
-					)
-				)
-		);
-		this.open();
-	}
-});
-
-MooDialog.error = new Class({	
-	
-	Extends: MooDialog,	
-  
-	initialize: function(msg,options){
-		this.parent(options);
-		
-		this.setContent(
-			new Element('div')
-				.adopt(
-					new Element('p',{
-						'class': 'MooDialogError',
-						text: msg
-					})
-				).adopt(
-					new Element('div',{
-						'class': 'buttons'
-					}).adopt(
-						new Element('input',{
-							type: 'button',
-							events: {
-								click: function(){
-									this.close();
-								}.bind(this)
-							},
-							value: 'Ok'
-						})
-					)
-				)
-		);
-		this.open();
-    }
-});
-
-String.implement({
-	alert: function(options){
-		new MooDialog.alert(this,options);
-	},
-	confirm: function(fn,fn1,options){
-		new MooDialog.confirm(this,fn,fn1,options);
-	},
-	promt: function(fn,options){
-		new MooDialog.promt(this,fn,options);
-	}
-});
 
 Element.implement({
 	MooDialog: function(options){
-		var box = new MooDialog(options);
-		box.setContent(this);
-		box.open();
+		var box = new MooDialog(options)
+			.setContent(this)
+			.open();
 		this.store('MooDialog',box);
 		return this;
-	},
-	
-	confirmLinkClick: function(msg,options){
-		this.addEvent('click',function(e){
-			e.stop();
-			msg.confirm(function(){
-				location.href = this.get('href');
-			}.bind(this),null,options)
-		});
 	}
-	
 });
 
 
