@@ -10,7 +10,6 @@ license:
 
 requires:
   core/1.2.4:   '*'
-  MooDialog:    '*'
 
 provides:
   - [MooDialog.Error]
