@@ -15,43 +15,83 @@ First you have to include the javascript files and css file in the head of your 
 	<script src="../Source/Overlay.js" type="text/javascript"></script>
 	<script src="../Source/MooDialog.js" type="text/javascript"></script>
 
+And whether functionality you want you use, you have to include, for example, the following files
 
-### Alert
-
-	#JS
-	new MooDialog.alert('This is an alert message');
+	#HTML
+	<script src="../Source/MooDialog.Alert.js" type="text/javascript"></script>
+	<script src="../Source/MooDialog.Request.js" type="text/javascript"></script>
 	
-	// Or from a string
-	('This is an alert message').alert();
 
-### Confirm
+### Class: MooDialog.Alert
+
+Create a alert dialog, a replacement for alert()
+
+	#HTML
+	<script src="../Source/MooDialog.Alert.js" type="text/javascript"></script>
 
 	#JS
-	new MooDialog.confirm('Are you sure you want to do this?',function(){
-		new MooDialog.alert('You are!')
+	new MooDialog.Alert(message[,options]);
+	
+	// example
+	new MooDialog.Alert('Hi there!');
+
+### Class: MooDialog.Confirm
+
+Create a confirm dialog, a replacement for confirm()
+
+	#HTML
+	<script src="../Source/MooDialog.Confirm.js" type="text/javascript"></script>
+
+	#JS
+	new MooDialog.Confirm(message[,fn1,fn2,options]);
+	
+	// Examaple
+	new MooDialog.Confirm('Are you sure you want to do this?',function(){
+		new MooDialog.Alert('You are!')
 	},function(){
-		new MooDialog.alert('You are not');
+		new MooDialog.Alert('You are not');
 	});
-	
-	// Or from a string
-	('Are you sure you want to do this?').confirm(fn1,fn2);
 
-### Prompt 
+#### Element.confirmLinkClick
+
+Create a confirm dialog if the user really want to follow this link
 
 	#JS
-	new MooDialog.promt('What is your name?',function(ret){
-		new MooDialog.alert('Your name is '+ ret);
-	});
-	
-	// Or from a string
-	('What is your name?').prompt(fn);
+	$('confirmDelete').confirmLinkClick('Are you sure you want to click this link');
 
-### Error
+
+### Class: MooDialog.Prompt 
+
+Create an prompt dialog, replacement for prompt()
+
+	#HTML
+	<script src="../Source/MooDialog.Prompt.js" type="text/javascript"></script>
 
 	#JS
-	new MooDialog.error('O No, What have you done!?');
+	new MooDialog.Prompt(message[,fn,options]);
+	
+	// Example
+	new MooDialog.Prompt('What is your name?',function(ret){
+		new MooDialog.Alert('Your name is '+ ret);
+	});
 
-### Custom from an element
+### Class: MooDialog.Error
+
+Create an error message
+
+	#HTML
+	<script src="../Source/MooDialog.Error.js" type="text/javascript"></script>
+
+	#JS
+	new MooDialog.Error(message);
+	
+	// Example
+	new MooDialog.Error('O No, What have you done!?');
+
+
+### Element.MooDialog
+
+Create a dialog from an element
 
 	#JS
 	new Element('div',{text: 'This is a custom element'}).MooDialog();
@@ -59,11 +99,25 @@ First you have to include the javascript files and css file in the head of your 
 	// Or an existing element from the DOM
 	$('el').MooDialog();
 
-### Confirm Link
+### Class: MooDialog.Iframe
+
+Create a dialog with an IFrame
 
 	#JS
-	$('confirmDelete').confirmLinkClick('Are you sure you want to click this link');
+	new MooDialog.Iframe(url[,options]);
+	
+	// Example
+	new MooDialog.Iframe('http://www.mootools.net');
+	
+### Class MooDialog.Request
 
+Get the dialog content by a Ajax Request
+
+	#JS
+	new MooDialog.Request(url[,RequestOptions,options]);
+	
+	// Example
+	new MooDialog.Request('exampleText.html');
 
 Options
 -------
@@ -81,13 +135,39 @@ In every last parameter you can set the following options.
 			y: -100
 		},
 		duration: 400,
+		scroll: true,
+		useEscKey: true,
+		disposeOnClose: true/*,
 		onOpen: $empty,
-		onClose: $empty
-	}	
+		onClose: $empty,
+		onShow: $empty,
+		onHide: $empty*/
+	}
 
+1. size: (*object*) The size of the dialog
+2. offset: (*object*) Offset of the box
+3. duration: (*number*) Duration of the fade effect
+4. scroll: (*boolean*) Use the window.onscroll event to keep the dialog on your screen
+5. useEscKey: (*boolean*) Use the esc key to close the dialog
+6. disposeOnClose: (*boolean*) Fire the MooDialog.dispose() method after closing the dialog to dispose the dialog from the DOM
+
+### Events
+1. open: When the dialog gets opend
+2. show: When the dialog is totally opened
+3. close: When the dialog gets closed
+4. hide: When the dialog is totally hidden
 
 Class: MooDialog
 ----------------
+
+#### Syntax
+
+	#JS
+	var dialog = new MooDialog([options]);
+
+#### Arguments
+
+1. options: (*object*) See the options section.
 
 Methods
 -------
@@ -109,10 +189,27 @@ With this method you can set the content of the dialog.
  - MooDialog instance
 
 ### open
+
 With this method you open the dialog
 
+	#JS
+	dialog.open();
+
+
 ### close
+
 With this method you close the dialog
+
+	#JS
+	dialog.close();
+
+### dispose
+
+Removes the dialog from the DOM
+
+	#JS
+	dialog.dispose();
+
 
 ### toElement
 This method returns the dialog wrapper element
