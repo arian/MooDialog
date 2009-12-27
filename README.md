@@ -28,9 +28,7 @@ Create a alert dialog, a replacement for alert()
 
 	#HTML
 	<script src="../Source/MooDialog.Alert.js" type="text/javascript"></script>
-
-
-
+  
 	#JS
 	new MooDialog.Alert(message[,options]);
 	
@@ -43,9 +41,7 @@ Create a confirm dialog, a replacement for confirm()
 
 	#HTML
 	<script src="../Source/MooDialog.Confirm.js" type="text/javascript"></script>
-
-
-
+  
 	#JS
 	new MooDialog.Confirm(message[,fn1,fn2,options]);
 	
@@ -70,9 +66,7 @@ Create an prompt dialog, replacement for prompt()
 
 	#HTML
 	<script src="../Source/MooDialog.Prompt.js" type="text/javascript"></script>
-
-
-
+  
 	#JS
 	new MooDialog.Prompt(message[,fn,options]);
 	
@@ -87,9 +81,7 @@ Create an error message
 
 	#HTML
 	<script src="../Source/MooDialog.Error.js" type="text/javascript"></script>
-
-
-
+  
 	#JS
 	new MooDialog.Error(message);
 	
@@ -117,15 +109,33 @@ Create a dialog with an IFrame
 	// Example
 	new MooDialog.Iframe('http://www.mootools.net');
 	
-### Class MooDialog.Request
+### Class: MooDialog.Request
 
 Get the dialog content by a Ajax Request
 
+	#HTML
+	<script src="../Source/MooDialog.Request.js" type="text/javascript"></script>
+  
 	#JS
 	new MooDialog.Request(url[,RequestOptions,options]);
 	
 	// Example
 	new MooDialog.Request('exampleText.html');
+
+### Class: MooDialog.Iframe
+
+Get an IFrame within the dialog
+
+	#HTML
+	<script src="../Source/MooDialog.Iframe.js" type="text/javascript"></script>
+  
+	#JS
+	new MooDialog.Iframe(url[,options]);
+	
+	// Example
+	new MooDialog.Iframe('http://www.mootools.net');
+
+
 
 Options
 -------
