@@ -26,6 +26,17 @@ MooDialog.Confirm = new Class({
 		fn = fn ? fn : $empty;
 		fn1 = fn1 ? fn1 : $empty;
 		
+		var cancelButton = new Element('input',{
+			type: 'button',
+			events: {
+				click: function(){
+					fn1();
+					this.close();
+				}.bind(this)
+			},
+			value: 'Cancel'
+		});
+		
 		this.setContent(
 			new Element('div')
 				.adopt(
@@ -36,18 +47,7 @@ MooDialog.Confirm = new Class({
 				).adopt(
 					new Element('div',{
 						'class': 'buttons'
-					}).adopt(
-						new Element('input',{
-							type: 'button',
-							events: {
-								click: function(){
-									fn1();
-									this.close();
-								}.bind(this)
-							},
-							value: 'Cancel'
-						})
-					).adopt(
+					}).adopt(cancelButton).adopt(
 						new Element('input',{
 							type: 'button',
 							events: {
@@ -61,6 +61,12 @@ MooDialog.Confirm = new Class({
 					)
 				)
 		).open();
+		
+		if(this.options.focus){
+			this.addEvent('show',function(){
+				cancelButton.focus();
+			});
+		}
 	}
 });
 

@@ -23,6 +23,16 @@ MooDialog.Alert = new Class({
 	initialize: function(msg,options){
 		this.parent(options);
 		
+		var okButton = new Element('input',{
+			type: 'button',
+			events: {
+				click: function(){
+					this.close();
+				}.bind(this)
+			},
+			value: 'Ok'
+		});
+		
 		this.setContent(
 			new Element('div').adopt(
 					new Element('p',{
@@ -32,19 +42,15 @@ MooDialog.Alert = new Class({
 				).adopt(
 					new Element('div',{
 						'class': 'buttons'
-					}).adopt(
-						new Element('input',{
-							type: 'button',
-							events: {
-								click: function(){
-									this.close();
-								}.bind(this)
-							},
-							value: 'Ok'
-						})
-					)
+					}).adopt(okButton)
 				)
 		).open();	
+
+		if(this.options.focus){
+			this.addEvent('show',function(){
+				okButton.focus();
+			});
+		}
 
 	}
 });

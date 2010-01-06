@@ -27,7 +27,9 @@ MooDialog.Prompt = new Class({
 
 		var textInput = new Element('input',{
 			type: 'text',
-			size: 30
+			styles: {
+				width: (this.options.size.width - 70)
+			}
 		});
 
 		this.setContent(
@@ -50,11 +52,22 @@ MooDialog.Prompt = new Class({
 					}).adopt(textInput).adopt(
 						new Element('input',{
 							type: 'submit',
-							value: 'Ok'
+							value: 'Ok',
+							styles: {
+								width: 40
+							}
 						})						
 					)
 				)
 		).open();
+		
+		if(this.options.focus){
+			this.addEvent('show',function(){
+				textInput.focus();
+			});
+		}
+		
+		
 	}
 });
 

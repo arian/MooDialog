@@ -52,6 +52,28 @@ window.addEvent('domready',function(){
 		new MooDialog.Error('O No, What have you done!?');
 	});
 
+	$('customized').addEvent('click',function(e){
+		e.stop();
+		new MooDialog.Alert('This is a customized dialog',{
+			title: 'Alert',
+			fx: {
+				type: 'morph',
+				open: {
+					'margin-top': [-100,0],
+					opacity: [0,1]
+				},
+				close: {
+					'margin-top': [0,100],
+					opacity: 0
+				},
+				options: {
+					duration: 600,
+					transition: Fx.Transitions.Bounce.easeOut
+				}
+			}
+		});
+	});
+
 	$('custom').addEvent('click',function(e){
 		e.stop();
 		$('el').MooDialog();
@@ -62,6 +84,7 @@ window.addEvent('domready',function(){
 	$('iframe').addEvent('click',function(e){
 		e.stop();
 		new MooDialog.Iframe('http://www.mootools.net',{
+			title: 'MooTools.net',
 			size: {
 				width: 700,
 				height: 400
@@ -133,6 +156,32 @@ window.addEvent('domready',function(){
 </pre>
 
 <p>
+	You can set a title too or customize the fx.
+	<a href="#" id="customized">Customized</a>
+</p>
+<pre>
+	new MooDialog.Alert('This is a customized dialog',{
+		title: 'Alert',
+		fx: {
+			type: 'morph',
+			open: {
+				'margin-top': [-100,0],
+				opacity: [0,1]
+			},
+			close: {
+				'margin-top': [0,100],
+				opacity: 0
+			},
+			options: {
+				duration: 600,
+				transition: Fx.Transitions.Bounce.easeOut
+			}
+		}
+	});
+</pre>
+
+
+<p>
 	<a href="#" id="custom">Create a Dialog from an Element:</a> 
 	<strong id="el">This element will get into the Dialog</strong>
 </p>
@@ -156,6 +205,7 @@ window.addEvent('domready',function(){
 </p>
 <pre>
 	new MooDialog.Iframe('http://www.mootools.net',{
+		title: 'MooTools.net',
 		size: {
 			width: 700,
 			height: 400
@@ -192,17 +242,35 @@ window.addEvent('domready',function(){
 		x: 0,
 		y: -100
 	},
-	duration: 400,
+	title: null,
 	scroll: true,
 	useEscKey: true,
-	disposeOnClose: true/*,
+	disposeOnClose: true,
+	closeButton: true,
+	focus: true,
+	fx: {
+		type: 'tween',
+		open: 1,
+		close: 0,
+		options: {
+			property: 'opacity',
+			duration: 400
+		}
+	}/*,
 	onOpen: $empty,
-	onClose: $empty*/
+	onClose: $empty,
+	onShow: $empty,
+	onHide: $empty*/
 }</pre>
 
 <h2>Docs</h2>
 
 <a href="http://github.com/arian/MooDialog/blob/master/README.md">Check the docs on Github.com</a>
+
+<h2>Download</h2>
+
+MooTools <a href="http://mootools.net/forge/p/moodialog">Forge</a>
+
 
 </body>
 </html>

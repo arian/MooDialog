@@ -1,16 +1,36 @@
-/* Gemaakt door Arian Stolwijk <http://www.aryweb.nl> */
+/* Created by Arian Stolwijk <http://www.aryweb.nl> */
 
 .MooDialog {
-	border: 10px solid black;
-	background: white;
+	background: #eef5f8;
 	color: black;
 	padding: 10px;
+	border-radius: 7px; 
 	-moz-border-radius: 7px; 
 	-webkit-border-radius: 7px; 
 	border-radius: 7px; 
-	-mox-box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+	-moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
 	-webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
 	box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+}
+
+.MooDialogTitle {
+	padding-top: 30px;
+}
+
+.MooDialog .title {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 3px 20px;
+	background: #b7c4dc;
+	border-bottom: 1px solid #a1aec5;
+	font-weight: bold; 
+	text-shadow: 1px 1px 0 #fff;
+	color: black;
+	border-radius: 7px; 
+	-moz-border-radius: 7px; 
+	-webkit-border-radius: 7px; 
 }
 
 .MooDialog .close {
@@ -19,6 +39,9 @@
 	height: 16px;
 	display: block;
 	cursor: pointer;
+	top: -5px;
+	left: -5px;
+	position: absolute;
 }
 
 .MooDialog .buttons {

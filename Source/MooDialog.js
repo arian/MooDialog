@@ -29,10 +29,21 @@ var MooDialog = new Class({
 			x: 0,
 			y: -100
 		},
-		duration: 400,
+		title: null,
 		scroll: true,
 		useEscKey: true,
-		disposeOnClose: true/*,
+		disposeOnClose: true,
+		closeButton: true,
+		focus: true,
+		fx: {
+			type: 'tween',
+			open: 1,
+			close: 0,
+			options: {
+				property: 'opacity',
+				duration: 400
+			}
+		}/*,
 		onOpen: $empty,
 		onClose: $empty,
 		onShow: $empty,
@@ -44,71 +55,78 @@ var MooDialog = new Class({
 
 		var x = this.options.size.width,
 			y = this.options.size.height;
-		
-		this.content = new Element('div', {
-			styles: {
-				width: x,
-				height: y,
-				overflow: 'auto'
-			}
-		});
-		
-		this.closeButton = new Element('a',{
-			'class': 'close',
-			styles: {
-				position: 'absolute',
-				top: -16,
-				left: -16,
-			},
-			events: {
-				click: function(){
-					this.close();
-				}.bind(this)
-			}
-		});
-		
+						
 		this.wrapper = new Element('div', {
 			'class': 'MooDialog',
 			styles: {
 				width: x,
 				height: y,
-				position: 'absolute',
+				position: this.options.scroll ? 'fixed' : 'absolute',
 				'z-index': 6000,	
 				opacity: 0
 			},
 			tween: {
 				duration: this.options.duration
 			}
-		}).inject(document.body)
-			.adopt(this.content)
-			.adopt(this.closeButton);
+		}).inject(document.body);
+
+		this.content = new Element('div', {
+			styles: {
+				width: x,
+				height: y,
+				overflow: 'auto'
+			}
+		}).inject(this.wrapper);
+
+		if(this.options.title){
+			this.title = new Element('div',{
+				'class': 'title',
+				'text': this.options.title
+			}).inject(this.wrapper);
+			this.wrapper.addClass('MooDialogTitle');
+		}
+		
+		if(this.options.closeButton){
+			this.closeButton = new Element('a',{
+				'class': 'close',
+				events: {
+					click: function(){
+						this.close();
+					}.bind(this)
+				}
+			}).inject(this.wrapper);
+		}
+
 		
 		// Set the position of the dialog
 		var docSize = document.id(document.body).getSize();
-		this.setPosition((docSize.x - x)/2,(docSize.y - y)/2,true);
+		this.setPosition((docSize.x - x)/2,(docSize.y - y)/2);
 		
-		if(this.options.scroll){
+/*		// IE 6 scroll
+		if(this.options.scroll && Browser.Engine.trident && Browser.Engine.version <= 4){
 			window.addEvent('scroll',function(e){
 				this.setPosition((docSize.x - x)/2,(docSize.y - y)/2,true);
 			}.bind(this));
 		}
-		
-		// Add the fade in/out effects
-		this.wrapper.set('tween',{
-			duration: this.options.duration,
-			onComplete: function(){
-				this.fireEvent(this.wrapper.get('opacity') == 0 ? 'hide' : 'show');
-				if (this.options.disposeOnClose && this.wrapper.get('opacity') == 0) {
-					this.dispose();
-				}
-			}.bind(this)
-		});
+*/
+		// Add the fade in/out effects if no other effect is defined
+		if(!this.fx){
+			this.fx = this.options.fx.type == 'morph' ? 
+				new Fx.Morph(this.wrapper,this.options.fx.options) : 
+				new Fx.Tween(this.wrapper,this.options.fx.options);
+		}
+		this.fx.addEvent('complete',function(){
+			this.fireEvent(this.open ? 'show' : 'hide');
+			if (this.options.disposeOnClose && !this.open) {
+				this.dispose();
+			}			
+		}.bind(this));
 		
 		this.overlay = new Overlay(document.body, {
 			onClick: function(){
 				this.close();
 			}.bind(this),
-			duration: this.options.duration
+			duration: this.options.fx.options.duration
 		});
 	},
 
@@ -131,7 +149,7 @@ var MooDialog = new Class({
 		y = y + this.options.offset.y;
 		x = x < 10 ? 10 : x;
 		y = y < 10 ? 10 : y;
-		if(relative){
+		if(this.wrapper.getStyle('position') != 'fixed' || relative){
 			var scroll = document.id(document.body).getScroll();
 			x = x + scroll.x;
 			y = y + scroll.y
@@ -144,8 +162,9 @@ var MooDialog = new Class({
 	},
 
 	open: function(){
+		this.open = true;
 		this.fireEvent('open');
-		this.wrapper.fade('in');
+		this.fx.start(this.options.fx.open);
 		this.overlay.open();
 		
 		if(this.options.useEscKey){
@@ -158,8 +177,9 @@ var MooDialog = new Class({
 	},
 	
 	close: function(){
+		this.open = false;
 		this.fireEvent('close');
-		this.wrapper.fade('out');
+		this.fx.start(this.options.fx.close);
 		this.overlay.close();
 		return this;
 	},

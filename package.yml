@@ -1,6 +1,6 @@
 name: MooDialog
 author: astolwijk
-current: 0.2
+current: 0.3
 category: Interface
 tags: [Dialog,Modal,Box,Alert,Confirm,Ajax,IFrame]
 demo: http://www.aryweb.nl/projects/MooDialog/

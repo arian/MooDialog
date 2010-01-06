@@ -165,10 +165,21 @@ In every last parameter you can set the following options.
 			x: 0,
 			y: -100
 		},
-		duration: 400,
+		title: null,
 		scroll: true,
 		useEscKey: true,
-		disposeOnClose: true/*,
+		disposeOnClose: true,
+		closeButton: true,
+		focus: true,
+		fx: {
+			type: 'tween',
+			open: 1,
+			close: 0,
+			options: {
+				property: 'opacity',
+				duration: 400
+			}
+		}/*,
 		onOpen: $empty,
 		onClose: $empty,
 		onShow: $empty,
@@ -177,10 +188,15 @@ In every last parameter you can set the following options.
 
 1. size: (*object*) The size of the dialog
 2. offset: (*object*) Offset of the box
-3. duration: (*number*) Duration of the fade effect
-4. scroll: (*boolean*) Use the window.onscroll event to keep the dialog on your screen
-5. useEscKey: (*boolean*) Use the esc key to close the dialog
-6. disposeOnClose: (*boolean*) Fire the MooDialog.dispose() method after closing the dialog to dispose the dialog from the DOM
+3. scroll: (*boolean*) Use position: fixed css property (there's some code commented for IE6 because it doesn't support position: fixed)
+4. useEscKey: (*boolean*) Use the esc key to close the dialog
+5. disposeOnClose: (*boolean*) Fire the MooDialog.dispose() method after closing the dialog to dispose the dialog from the DOM
+6. focus: (*boolean*) Shoud the buttons for MooDialog.Alert, Moodialog.Confirm, MooDialog.Error and MooDialog.Promt be focussed
+7. fx: (*object*) Here you can set a object to modify the open and close effect
+	1. type: (*string*) The type of fx, tween or morph
+	2. open: (*mixed*) Anything you normally put into Fx.Tween.start() or Fx.Morph.start() to open the dialog
+	3. close: (*mixed*) Anything you normally put into Fx.Tween.start() or Fx.Morph.start() to close the dialog
+	4. options: (*object*) The Fx options object
 
 ### Events
 1. open: When the dialog gets opend
