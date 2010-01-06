@@ -57,10 +57,9 @@ var Overlay = new Class({
 			link: 'cancel',
 			property: 'opacity',
 			onStart: function() {
-				var size = this.container.getScrollSize();
 				this.overlay.setStyles({
-					width: size.x,
-					height: size.y
+					width: '100%',
+					height: this.container.getScrollSize().y
 				});
 			}.bind(this),
 			onComplete: function() {
@@ -71,9 +70,11 @@ var Overlay = new Class({
 	open: function() {
 		this.fireEvent('open');
 		this.tween.start(this.options.opacity);
+		return this;
 	},
 	close: function() {
 		this.fireEvent('close');
 		this.tween.start(0);
+		return this;
 	}
 });
