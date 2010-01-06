@@ -191,8 +191,9 @@ In every last parameter you can set the following options.
 3. scroll: (*boolean*) Use position: fixed css property (there's some code commented for IE6 because it doesn't support position: fixed)
 4. useEscKey: (*boolean*) Use the esc key to close the dialog
 5. disposeOnClose: (*boolean*) Fire the MooDialog.dispose() method after closing the dialog to dispose the dialog from the DOM
-6. focus: (*boolean*) Shoud the buttons for MooDialog.Alert, Moodialog.Confirm, MooDialog.Error and MooDialog.Promt be focussed
-7. fx: (*object*) Here you can set a object to modify the open and close effect
+6. closeButton: (*boolean*) Should it diplay a close button
+7. focus: (*boolean*) Shoud the buttons for MooDialog.Alert, Moodialog.Confirm, MooDialog.Error and MooDialog.Promt be focussed
+8. fx: (*object*) Here you can set a object to modify the open and close effect
 	1. type: (*string*) The type of fx, tween or morph
 	2. open: (*mixed*) Anything you normally put into Fx.Tween.start() or Fx.Morph.start() to open the dialog
 	3. close: (*mixed*) Anything you normally put into Fx.Tween.start() or Fx.Morph.start() to close the dialog
