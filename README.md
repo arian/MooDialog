@@ -198,6 +198,8 @@ In every last parameter you can set the following options.
 	2. open: (*mixed*) Anything you normally put into Fx.Tween.start() or Fx.Morph.start() to open the dialog
 	3. close: (*mixed*) Anything you normally put into Fx.Tween.start() or Fx.Morph.start() to close the dialog
 	4. options: (*object*) The Fx options object
+9. okText: (*string*) Only if the dialog has an ok button, you can set its text here
+10. cancelText: (*string*) Only if the dialog has an cancel button, you can set its text here
 
 ### Events
 1. open: When the dialog gets opend

@@ -20,6 +20,10 @@ MooDialog.Prompt = new Class({
 	
 	Extends: MooDialog,	
   
+	options: {
+		okText: 'Ok'
+	},
+
 	initialize: function(msg,fn,options){
 		this.parent(options);
 
@@ -52,7 +56,7 @@ MooDialog.Prompt = new Class({
 					}).adopt(textInput).adopt(
 						new Element('input',{
 							type: 'submit',
-							value: 'Ok',
+							value: this.options.okText,
 							styles: {
 								width: 40
 							}

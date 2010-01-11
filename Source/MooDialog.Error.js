@@ -20,6 +20,10 @@ MooDialog.Error = new Class({
 	
 	Extends: MooDialog,	
   
+	options: {
+		okText: 'Ok'
+	},
+
 	initialize: function(msg,options){
 		this.parent(options);
 		
@@ -30,7 +34,7 @@ MooDialog.Error = new Class({
 					this.close();
 				}.bind(this)
 			},
-			value: 'Ok'
+			value: this.options.okText
 		});		
 
 		this.setContent(

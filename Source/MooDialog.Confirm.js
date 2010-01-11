@@ -20,6 +20,11 @@ MooDialog.Confirm = new Class({
 	
 	Extends: MooDialog,	
   
+	options: {
+		okText: 'Ok',
+		cancelText: 'Cancel'
+	},
+
 	initialize: function(msg,fn,fn1,options){
 		this.parent(options);
 		
@@ -34,7 +39,7 @@ MooDialog.Confirm = new Class({
 					this.close();
 				}.bind(this)
 			},
-			value: 'Cancel'
+			value: this.options.cancelText
 		});
 		
 		this.setContent(
@@ -56,7 +61,7 @@ MooDialog.Confirm = new Class({
 									this.close();
 								}.bind(this)
 							},
-							value: 'Ok'
+							value: this.options.okText
 						})
 					)
 				)
