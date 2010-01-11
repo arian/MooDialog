@@ -185,8 +185,8 @@ var MooDialog = new Class({
 	},
 	
 	dispose: function(){
-		this.wrapper.dispose();
-		this.overlay.overlay.dispose();
+		this.wrapper.destroy();
+		this.overlay.overlay.destroy();
 	},
 	
 	toElement: function(){
