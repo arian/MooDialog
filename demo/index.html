@@ -70,7 +70,8 @@ window.addEvent('domready',function(){
 					duration: 600,
 					transition: Fx.Transitions.Bounce.easeOut
 				}
-			}
+			},
+			okText: 'It is really cool indeed!'
 		});
 	});
 
@@ -177,6 +178,7 @@ window.addEvent('domready',function(){
 				transition: Fx.Transitions.Bounce.easeOut
 			}
 		}
+		okText: 'It is really cool indeed!'
 	});
 </pre>
 
@@ -256,7 +258,9 @@ window.addEvent('domready',function(){
 			property: 'opacity',
 			duration: 400
 		}
-	}/*,
+	},
+	okText: 'Ok', // Only MooDialog.Alert, MooDialog.Confirm,MooDialog.Error and MooDialog.Prompt
+	cancelText: 'Cancel' // Only MooDialog.Confirm /*,
 	onOpen: $empty,
 	onClose: $empty,
 	onShow: $empty,

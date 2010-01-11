@@ -179,7 +179,9 @@ In every last parameter you can set the following options.
 				property: 'opacity',
 				duration: 400
 			}
-		}/*,
+		},
+		okText: 'Ok', // Only MooDialog.Alert, MooDialog.Confirm,MooDialog.Error and MooDialog.Prompt
+		cancelText: 'Cancel' // Only MooDialog.Confirm /*,
 		onOpen: $empty,
 		onClose: $empty,
 		onShow: $empty,
