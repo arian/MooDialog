@@ -206,10 +206,11 @@ window.addEvent('domready',function(){
 
 <p>
 	<strong>Confirm form submit</strong>
-	<form action="#uSubmittedThisForm" method="get" id="formId">
-		<input type="submit" value="Click to submit" />
-	</form>
 </p>
+<form action="#uSubmittedThisForm" method="get" id="formId">
+	<input type="text" name="text" placeholder="type something" />
+	<input type="submit" value="Click to submit" name="submitInput" />
+</form>
 
 <pre>
 	$('formId').confirmFormSubmit('Are you sure you want to submit this form');
@@ -264,7 +265,6 @@ window.addEvent('domready',function(){
 	useEscKey: true,
 	disposeOnClose: true,
 	closeButton: true,
-	focus: true,
 	fx: {
 		type: 'tween',
 		open: 1,
@@ -274,6 +274,7 @@ window.addEvent('domready',function(){
 			duration: 400
 		}
 	},
+	focus: true, // Only MooDialog.Alert, MooDialog.Confirm,MooDialog.Error and MooDialog.Prompt
 	okText: 'Ok', // Only MooDialog.Alert, MooDialog.Confirm,MooDialog.Error and MooDialog.Prompt
 	cancelText: 'Cancel' // Only MooDialog.Confirm /*,
 	onOpen: $empty,

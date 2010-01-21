@@ -170,7 +170,6 @@ In every last parameter you can set the following options.
 		useEscKey: true,
 		disposeOnClose: true,
 		closeButton: true,
-		focus: true,
 		fx: {
 			type: 'tween',
 			open: 1,
@@ -180,6 +179,7 @@ In every last parameter you can set the following options.
 				duration: 400
 			}
 		},
+		focus: true, // Only MooDialog.Alert, MooDialog.Confirm,MooDialog.Error and MooDialog.Prompt
 		okText: 'Ok', // Only MooDialog.Alert, MooDialog.Confirm,MooDialog.Error and MooDialog.Prompt
 		cancelText: 'Cancel' // Only MooDialog.Confirm /*,
 		onOpen: $empty,
