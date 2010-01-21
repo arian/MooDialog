@@ -21,7 +21,8 @@ MooDialog.Error = new Class({
 	Extends: MooDialog,	
   
 	options: {
-		okText: 'Ok'
+		okText: 'Ok',
+		focus: true
 	},
 
 	initialize: function(msg,options){

@@ -34,7 +34,6 @@ var MooDialog = new Class({
 		useEscKey: true,
 		disposeOnClose: true,
 		closeButton: true,
-		focus: true,
 		fx: {
 			type: 'tween',
 			open: 1,

@@ -22,7 +22,8 @@ MooDialog.Confirm = new Class({
   
 	options: {
 		okText: 'Ok',
-		cancelText: 'Cancel'
+		cancelText: 'Cancel',
+		focus: true
 	},
 
 	initialize: function(msg,fn,fn1,options){

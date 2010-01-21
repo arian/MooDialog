@@ -21,7 +21,8 @@ MooDialog.Prompt = new Class({
 	Extends: MooDialog,	
   
 	options: {
-		okText: 'Ok'
+		okText: 'Ok',
+		focus: true
 	},
 
 	initialize: function(msg,fn,options){
