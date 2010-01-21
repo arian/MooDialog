@@ -85,8 +85,17 @@ Element.implement({
 				location.href = this.get('href');
 			}.bind(this),null,options)
 		});
-	}
-	
+		return this;
+	},
+	confirmFormSubmit: function(msg,options){
+		this.addEvent('submit',function(e){
+			e.stop();
+			new MooDialog.Confirm(msg,function(){
+				this.submit();
+			}.bind(this),null,options)
+		});
+		return this;
+	}	
 });
 
 

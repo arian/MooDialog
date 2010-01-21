@@ -80,7 +80,9 @@ window.addEvent('domready',function(){
 		$('el').MooDialog();
 	});
 	
-	$('confirmLinkClick').confirmLinkClick('Are you sure you want to click this link');
+	$('confirmLinkClick').confirmLinkClick('Are you sure you want to click this link. (watch the hash in your url)');
+
+	$('formId').confirmFormSubmit('Are you sure you want to submit this form. (watch the hash in your url)');
 
 	$('iframe').addEvent('click',function(e){
 		e.stop();
@@ -195,12 +197,25 @@ window.addEvent('domready',function(){
 </pre>
 
 <p>
-	<a href="#" id="confirmLinkClick">Are you sure you want to delete this quick link</a>
+	<a href="#youClickedYes" id="confirmLinkClick">Are you sure you want to delete this quick link</a>
 </p>
 
 <pre>
 	$('confirmDelete').confirmLinkClick('Are you sure you want to click this link');
 </pre>
+
+<p>
+	<strong>Confirm form submit</strong>
+	<form action="#uSubmittedThisForm" method="get" id="formId">
+		<input type="submit" value="Click to submit" />
+	</form>
+</p>
+
+<pre>
+	$('formId').confirmFormSubmit('Are you sure you want to submit this form');
+</pre>
+
+
 
 <p>
 	<a href="#" id="iframe">MooTools.net in an IFrame</a>
