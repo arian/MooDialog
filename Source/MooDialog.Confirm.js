@@ -12,7 +12,7 @@ requires:
   core/1.2.4:   '*'
 
 provides:
-  - [MooDialog.Confirm,Element.confirmLinkClick]
+  - [MooDialog.Confirm,Element.confirmLinkClick,Element.confirmFormSubmit]
 ...
 */
 
