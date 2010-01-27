@@ -65,6 +65,13 @@ Create a confirm dialog if the user really want to follow this link
 	$('confirmDelete').confirmLinkClick('Are you sure you want to click this link');
 
 
+#### Element.confirmFormSubmit
+
+Create a confirm dialog if the user try to submit a form
+
+	#JS
+	document.getElement('form#myForm').confirmFormSubmit('Do you want to submit this form');'
+
 ### Class: MooDialog.Prompt 
 
 Create an prompt dialog, replacement for prompt()
