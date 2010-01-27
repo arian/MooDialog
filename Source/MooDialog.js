@@ -63,9 +63,6 @@ var MooDialog = new Class({
 				position: this.options.scroll ? 'fixed' : 'absolute',
 				'z-index': 6000,	
 				opacity: 0
-			},
-			tween: {
-				duration: this.options.duration
 			}
 		}).inject(document.body);
 
@@ -148,7 +145,7 @@ var MooDialog = new Class({
 		y = y + this.options.offset.y;
 		x = x < 10 ? 10 : x;
 		y = y < 10 ? 10 : y;
-		if(this.wrapper.getStyle('position') != 'fixed' || relative){
+		if(this.wrapper.getStyle(relative || 'position') != 'fixed'){
 			var scroll = document.id(document.body).getScroll();
 			x = x + scroll.x;
 			y = y + scroll.y
