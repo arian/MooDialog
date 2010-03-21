@@ -51,6 +51,7 @@ var MooDialog = new Class({
 
 	initialize: function(options){
 		this.setOptions(options);
+		this.ie6 = Browser.Engine.trident && Browser.Engine.version <= 4;
 
 		var x = this.options.size.width,
 			y = this.options.size.height;
@@ -60,7 +61,7 @@ var MooDialog = new Class({
 			styles: {
 				width: x,
 				height: y,
-				position: this.options.scroll ? 'fixed' : 'absolute',
+				position: this.options.scroll && !this.ie6 ? 'fixed' : 'absolute',
 				'z-index': 6000,	
 				opacity: 0
 			}
@@ -98,13 +99,13 @@ var MooDialog = new Class({
 		var docSize = document.id(document.body).getSize();
 		this.setPosition((docSize.x - x)/2,(docSize.y - y)/2);
 		
-/*		// IE 6 scroll
-		if(this.options.scroll && Browser.Engine.trident && Browser.Engine.version <= 4){
+		// IE 6 scroll
+		if(this.options.scroll && this.ie6){
 			window.addEvent('scroll',function(e){
-				this.setPosition((docSize.x - x)/2,(docSize.y - y)/2,true);
+				this.setPosition((docSize.x - x)/2,(docSize.y - y)/2);
 			}.bind(this));
 		}
-*/
+
 		// Add the fade in/out effects if no other effect is defined
 		if(!this.fx){
 			this.fx = this.options.fx.type == 'morph' ? 
@@ -140,15 +141,15 @@ var MooDialog = new Class({
 		return this;
 	},
 	
-	setPosition: function(x,y,relative){
-		x = x + this.options.offset.x;
-		y = y + this.options.offset.y;
+	setPosition: function(x,y){
+		x += this.options.offset.x;
+		y += this.options.offset.y;
 		x = x < 10 ? 10 : x;
 		y = y < 10 ? 10 : y;
-		if(this.wrapper.getStyle(relative || 'position') != 'fixed'){
+		if(this.wrapper.getStyle('position') != 'fixed'){
 			var scroll = document.id(document.body).getScroll();
-			x = x + scroll.x;
-			y = y + scroll.y
+			x += scroll.x;
+			y += scroll.y
 		}
 		this.wrapper.setStyles({
 			left: x,
