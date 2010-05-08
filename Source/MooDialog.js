@@ -9,7 +9,7 @@ license:
   - MIT-style license
 
 requires:
-  core/1.2.4:   '*'
+  core/1.3:   '*'
 
 provides:
   - [MooDialog,Element.MooDialog]
@@ -51,7 +51,6 @@ var MooDialog = new Class({
 
 	initialize: function(options){
 		this.setOptions(options);
-		this.ie6 = Browser.Engine.trident && Browser.Engine.version <= 4;
 
 		var x = this.options.size.width,
 			y = this.options.size.height;
@@ -61,7 +60,7 @@ var MooDialog = new Class({
 			styles: {
 				width: x,
 				height: y,
-				position: this.options.scroll && !this.ie6 ? 'fixed' : 'absolute',
+				position: this.options.scroll && !Browser.ie6 ? 'fixed' : 'absolute',
 				'z-index': 6000,	
 				opacity: 0
 			}
@@ -100,7 +99,7 @@ var MooDialog = new Class({
 		this.setPosition((docSize.x - x)/2,(docSize.y - y)/2);
 		
 		// IE 6 scroll
-		if(this.options.scroll && this.ie6){
+		if(this.options.scroll && Browser.ie6){
 			window.addEvent('scroll',function(e){
 				this.setPosition((docSize.x - x)/2,(docSize.y - y)/2);
 			}.bind(this));
@@ -129,7 +128,7 @@ var MooDialog = new Class({
 
 	setContent: function(content){
 		this.content.empty();
-		switch($type(content)){
+		switch(typeOf(content)){
 			case 'element':
 				this.content.adopt(content);
 			break;

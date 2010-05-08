@@ -37,12 +37,11 @@ var Overlay = new Class({
 	initialize: function(container, options){
 		this.setOptions(options);
 		this.container = document.id(container);
-		if (Browser.Engine.trident && Browser.Engine.version <= 6) this.ie6 = true;
 		this.overlay = new Element('div', {
 			id: this.options.id,
 			opacity: 0,
 			styles: {
-				position: (this.ie6) ? 'absolute' : 'fixed',
+				position: (Browser.ie6) ? 'absolute' : 'fixed',
 				background: this.options.color,
 				left: 0,
 				top: 0,
@@ -98,7 +97,7 @@ var Overlay = new Class({
 	
 	scroll: function(){
 		this.fireEvent('scroll');
-		if (this.ie6) this.overlay.setStyle('left', window.getScroll().x);
+		if (Browser.ie6) this.overlay.setStyle('left', window.getScroll().x);
 		return this;
 	}
 	
