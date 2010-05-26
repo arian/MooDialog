@@ -34,6 +34,8 @@ var MooDialog = new Class({
 		useEscKey: true,
 		disposeOnClose: true,
 		closeButton: true,
+		isModal : false, //fix
+		useScrollBar : true, //fix
 		fx: {
 			type: 'tween',
 			open: 1,
@@ -51,6 +53,15 @@ var MooDialog = new Class({
 
 	initialize: function(options){
 		this.setOptions(options);
+
+		this.isModal = this.options.isModal; //fix
+
+		//fix
+		var overflowBox = "auto";
+		if (!this.options.useScrollBar) {
+			overflowBox = "hidden";
+		}
+		
 		this.ie6 = Browser.Engine.trident && Browser.Engine.version <= 4;
 
 		var x = this.options.size.width,
@@ -71,7 +82,8 @@ var MooDialog = new Class({
 			styles: {
 				width: x,
 				height: y,
-				overflow: 'auto'
+				//overflow: 'auto' //fix
+				overflow: overflowBox //fix
 			}
 		}).inject(this.wrapper);
 
@@ -88,7 +100,9 @@ var MooDialog = new Class({
 				'class': 'close',
 				events: {
 					click: function(){
+
 						this.close();
+					
 					}.bind(this)
 				}
 			}).inject(this.wrapper);
@@ -120,8 +134,11 @@ var MooDialog = new Class({
 		}.bind(this));
 		
 		this.overlay = new Overlay(document.body, {
-			onClick: function(){
-				this.close();
+			onClick: function() {
+				//fix
+				if(!this.isModal) {
+					this.close();
+				}
 			}.bind(this),
 			duration: this.options.fx.options.duration
 		});
