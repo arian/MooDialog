@@ -91,11 +91,7 @@ var MooDialog = new Class({
 			this.closeButton = new Element('a',{
 				'class': 'close',
 				events: {
-					click: function(){
-
-						this.close();
-					
-					}.bind(this)
+					click: this.close.bind(this)
 				}
 			}).inject(wrapper);
 		}
