@@ -177,6 +177,8 @@ In every last parameter you can set the following options.
 		useEscKey: true,
 		disposeOnClose: true,
 		closeButton: true,
+		closeOnOverlayClick: true,
+		useScrollBar: true,
 		fx: {
 			type: 'tween',
 			open: 1,
@@ -201,14 +203,16 @@ In every last parameter you can set the following options.
 4. useEscKey: (*boolean*) Use the esc key to close the dialog
 5. disposeOnClose: (*boolean*) Fire the MooDialog.dispose() method after closing the dialog to dispose the dialog from the DOM
 6. closeButton: (*boolean*) Should it diplay a close button
-7. focus: (*boolean*) Shoud the buttons for MooDialog.Alert, Moodialog.Confirm, MooDialog.Error and MooDialog.Promt be focussed
-8. fx: (*object*) Here you can set a object to modify the open and close effect
+7. closeOnOverlayClick: (*boolean*, default true) Should the dialog close when there is clicked on the Overlay
+8. useScrollBar: (*boolean*, default true) Should it display scrollbars when the content is to big for the dialog
+9. focus: (*boolean*) Shoud the buttons for MooDialog.Alert, Moodialog.Confirm, MooDialog.Error and MooDialog.Promt be focussed
+10. fx: (*object*) Here you can set a object to modify the open and close effect
 	1. type: (*string*) The type of fx, tween or morph
 	2. open: (*mixed*) Anything you normally put into Fx.Tween.start() or Fx.Morph.start() to open the dialog
 	3. close: (*mixed*) Anything you normally put into Fx.Tween.start() or Fx.Morph.start() to close the dialog
 	4. options: (*object*) The Fx options object
-9. okText: (*string*) Only if the dialog has an ok button, you can set its text here
-10. cancelText: (*string*) Only if the dialog has an cancel button, you can set its text here
+11. okText: (*string*) Only if the dialog has an ok button, you can set its text here
+12. cancelText: (*string*) Only if the dialog has an cancel button, you can set its text here
 
 ### Events
 1. open: When the dialog gets opend
