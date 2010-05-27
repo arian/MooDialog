@@ -53,14 +53,14 @@ var MooDialog = new Class({
 
 	initialize: function(options){
 		this.setOptions(options);
-
 		this.ie6 = Browser.Engine.trident && Browser.Engine.version <= 4;
-		var options = this.options, optionsSize = options.size;
-
-		var x = optionsSize.width,
-			y = optionsSize.height;
-						
-		var wrapper = this.wrapper = new Element('div', {
+		
+		var options = this.options, 
+			optionsSize = options.size,
+			x = optionsSize.width,
+			y = optionsSize.height,
+			
+		wrapper = this.wrapper = new Element('div', {
 			'class': 'MooDialog',
 			styles: {
 				width: x,
