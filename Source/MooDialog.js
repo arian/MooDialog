@@ -34,7 +34,7 @@ var MooDialog = new Class({
 		useEscKey: true,
 		disposeOnClose: true,
 		closeButton: true,
-		isModal : false, //fix
+		closeOnOverlayClick : false, //fix
 		useScrollBar : true, //fix
 		fx: {
 			type: 'tween',
@@ -53,8 +53,6 @@ var MooDialog = new Class({
 
 	initialize: function(options){
 		this.setOptions(options);
-
-		this.isModal = this.options.isModal; //fix
 
 		//fix
 		var overflowBox = "auto";
@@ -134,14 +132,11 @@ var MooDialog = new Class({
 		}.bind(this));
 		
 		this.overlay = new Overlay(document.body, {
-			onClick: function() {
-				//fix
-				if(!this.isModal) {
-					this.close();
-				}
-			}.bind(this),
 			duration: this.options.fx.options.duration
 		});
+		if (!this.options.closeOnOverlayClick) {
+			this.overlay.addEvent('click', this.close.bind(this));
+		}
 	},
 
 	setContent: function(content){
