@@ -34,8 +34,8 @@ var MooDialog = new Class({
 		useEscKey: true,
 		disposeOnClose: true,
 		closeButton: true,
-		closeOnOverlayClick : false, //fix
-		useScrollBar : true, //fix
+		closeOnOverlayClick: false,
+		useScrollBar: true,
 		fx: {
 			type: 'tween',
 			open: 1,
