@@ -34,7 +34,7 @@ var MooDialog = new Class({
 		useEscKey: true,
 		disposeOnClose: true,
 		closeButton: true,
-		closeOnOverlayClick: false,
+		closeOnOverlayClick: true,
 		useScrollBar: true,
 		fx: {
 			type: 'tween',
@@ -124,7 +124,7 @@ var MooDialog = new Class({
 		this.overlay = new Overlay(document.body, {
 			duration: this.options.fx.options.duration
 		});
-		if (!this.options.closeOnOverlayClick) {
+		if (options.closeOnOverlayClick) {
 			this.overlay.addEvent('click', this.close.bind(this));
 		}
 	},
