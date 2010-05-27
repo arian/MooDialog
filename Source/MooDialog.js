@@ -61,16 +61,17 @@ var MooDialog = new Class({
 		}
 		
 		this.ie6 = Browser.Engine.trident && Browser.Engine.version <= 4;
+		var options = this.options, optionsSize = options.size;
 
-		var x = this.options.size.width,
-			y = this.options.size.height;
+		var x = optionsSize.width,
+			y = optionsSize.height;
 						
-		this.wrapper = new Element('div', {
+		var wrapper = this.wrapper = new Element('div', {
 			'class': 'MooDialog',
 			styles: {
 				width: x,
 				height: y,
-				position: this.options.scroll && !this.ie6 ? 'fixed' : 'absolute',
+				position: options.scroll && !this.ie6 ? 'fixed' : 'absolute',
 				'z-index': 6000,	
 				opacity: 0
 			}
@@ -83,17 +84,17 @@ var MooDialog = new Class({
 				//overflow: 'auto' //fix
 				overflow: overflowBox //fix
 			}
-		}).inject(this.wrapper);
+		}).inject(wrapper);
 
-		if(this.options.title){
+		if(options.title){
 			this.title = new Element('div',{
 				'class': 'title',
-				'text': this.options.title
-			}).inject(this.wrapper);
-			this.wrapper.addClass('MooDialogTitle');
+				'text': options.title
+			}).inject(wrapper);
+			wrapper.addClass('MooDialogTitle');
 		}
 		
-		if(this.options.closeButton){
+		if(options.closeButton){
 			this.closeButton = new Element('a',{
 				'class': 'close',
 				events: {
@@ -103,7 +104,7 @@ var MooDialog = new Class({
 					
 					}.bind(this)
 				}
-			}).inject(this.wrapper);
+			}).inject(wrapper);
 		}
 
 		
@@ -112,7 +113,7 @@ var MooDialog = new Class({
 		this.setPosition((docSize.x - x)/2,(docSize.y - y)/2);
 		
 		// IE 6 scroll
-		if(this.options.scroll && this.ie6){
+		if(options.scroll && this.ie6){
 			window.addEvent('scroll',function(e){
 				this.setPosition((docSize.x - x)/2,(docSize.y - y)/2);
 			}.bind(this));
@@ -120,13 +121,13 @@ var MooDialog = new Class({
 
 		// Add the fade in/out effects if no other effect is defined
 		if(!this.fx){
-			this.fx = this.options.fx.type == 'morph' ? 
-				new Fx.Morph(this.wrapper,this.options.fx.options) : 
-				new Fx.Tween(this.wrapper,this.options.fx.options);
+			this.fx = options.fx.type == 'morph' ? 
+				new Fx.Morph(wrapper,options.fx.options) : 
+				new Fx.Tween(wrapper,options.fx.options);
 		}
 		this.fx.addEvent('complete',function(){
 			this.fireEvent(this.open ? 'show' : 'hide');
-			if (this.options.disposeOnClose && !this.open) {
+			if (options.disposeOnClose && !this.open) {
 				this.dispose();
 			}			
 		}.bind(this));
@@ -154,16 +155,17 @@ var MooDialog = new Class({
 	},
 	
 	setPosition: function(x,y){
-		x += this.options.offset.x;
-		y += this.options.offset.y;
+		var options = this.options, wrapper = this.wrapper;
+		x += options.offset.x;
+		y += options.offset.y;
 		x = x < 10 ? 10 : x;
 		y = y < 10 ? 10 : y;
-		if(this.wrapper.getStyle('position') != 'fixed'){
+		if(wrapper.getStyle('position') != 'fixed'){
 			var scroll = document.id(document.body).getScroll();
 			x += scroll.x;
 			y += scroll.y
 		}
-		this.wrapper.setStyles({
+		wrapper.setStyles({
 			left: x,
 			top: y
 		});
