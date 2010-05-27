@@ -19,16 +19,18 @@ provides:
 MooDialog.Iframe = new Class({	
 	
 	Extends: MooDialog,	
-  
+
 	initialize: function(url,options){
 		this.parent(options);
+		options = this.options, optionsSize = options.size;
 		
 		this.setContent(
 			new Element('iframe',{
 				src: url,
 				frameborder: 0,
-				width: this.options.size.width,
-				height: this.options.size.height
+				scrolling: options.useScrollBar ? 'auto' : 'no',
+				width: optionsSize.width,
+				height: optionsSize.height
 			})
 		).open();
     }

@@ -37,7 +37,22 @@ var Overlay = new Class({
 	initialize: function(container, options){
 		this.setOptions(options);
 		this.container = document.id(container);
-		this.overlay = new Element('div', {
+
+		this.bound = {
+			'window': {
+				resize: this.resize.bind(this),
+				scroll: this.scroll.bind(this)
+			},			
+			overlayClick: this.overlayClick.bind(this),
+			tweenStart: this.tweenStart.bind(this),
+			tweenComplete: this.tweenComplete.bind(this)	  
+		};
+		
+		this.build().attach();
+	},
+	
+	build: function(){
+	  this.overlay = new Element('div', {
 			id: this.options.id,
 			opacity: 0,
 			styles: {
@@ -46,35 +61,51 @@ var Overlay = new Class({
 				left: 0,
 				top: 0,
 				'z-index': this.options.zIndex
-			},
-			events: {
-				click: function(){
-					this.fireEvent('click');
-				}.bind(this)
 			}
 		}).inject(this.container);
 		this.tween = new Fx.Tween(this.overlay, { 
 			duration: this.options.duration,
 			link: 'cancel',
-			property: 'opacity',
-			onStart: function(){
-				this.overlay.setStyles({
-					width: '100%',
-					height: this.container.getScrollSize().y
-				});
-			}.bind(this),
-			onComplete: function(){
-				this.fireEvent(this.overlay.get('opacity') == this.options.opacity ? 'show' : 'hide');
-			}.bind(this)
+			property: 'opacity'
 		});
-		window.addEvents({
-			'resize': function(){
-				this.resize();
-			}.bind(this),
-			'scroll': function(){
-				this.scroll();
-			}.bind(this)
+	 return this;
+	}.protect(),
+	
+	attach: function(){
+		window.addEvents(this.bound.window);
+		this.overlay.addEvent('click', this.bound.overlayClick);
+		this.tween.addEvents({
+			onStart: this.bound.tweenStart,
+			onComplete: this.bound.tweenComplete
 		});
+	 return this;
+	},
+	
+	detach: function(){
+		var args = Array.prototype.slice.call(arguments);
+		args.each(function(item){
+			if(item == 'window') window.removeEvents(this.bound.window);
+			if(item == 'overlay') this.overlay.removeEvent('click', this.bound.overlayClick);
+		}, this);
+		return this;
+	},
+	
+	overlayClick: function(){
+		this.fireEvent('click');
+		return this;
+	},
+	
+	tweenStart: function(){
+		this.overlay.setStyles({
+			width: '100%',
+			height: this.container.getScrollSize().y
+		});
+	 return this;
+	},
+	
+	tweenComplete: function(){
+		this.fireEvent(this.overlay.get('opacity') == this.options.opacity ? 'show' : 'hide');
+		return this;
 	},
 	
 	open: function(){
