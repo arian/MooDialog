@@ -1353,7 +1353,7 @@ var Events = this.Events = new Class({
 
 	addEvent: function(type, fn, internal){
 		type = Events.removeOn(type);
-		if (fn /*<1.2compat>*/ && fn != $empty /*</1.2compat>*/){
+		if (fn){
 			this.$events[type] = this.$events[type] || [];
 			this.$events[type].include(fn);
 			if (internal) fn.internal = true;
