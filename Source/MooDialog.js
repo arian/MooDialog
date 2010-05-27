@@ -54,12 +54,6 @@ var MooDialog = new Class({
 	initialize: function(options){
 		this.setOptions(options);
 
-		//fix
-		var overflowBox = "auto";
-		if (!this.options.useScrollBar) {
-			overflowBox = "hidden";
-		}
-		
 		this.ie6 = Browser.Engine.trident && Browser.Engine.version <= 4;
 		var options = this.options, optionsSize = options.size;
 
@@ -81,8 +75,7 @@ var MooDialog = new Class({
 			styles: {
 				width: x,
 				height: y,
-				//overflow: 'auto' //fix
-				overflow: overflowBox //fix
+				overflow: options.useScrollBar ? 'auto' : 'hidden'
 			}
 		}).inject(wrapper);
 
