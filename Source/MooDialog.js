@@ -143,16 +143,17 @@ var MooDialog = new Class({
 	},
 	
 	setPosition: function(x,y){
-		x += this.options.offset.x;
-		y += this.options.offset.y;
+		var options = this.options, wrapper = this.wrapper;
+		x += options.offset.x;
+		y += options.offset.y;
 		x = x < 10 ? 10 : x;
 		y = y < 10 ? 10 : y;
-		if(this.wrapper.getStyle('position') != 'fixed'){
+		if(wrapper.getStyle('position') != 'fixed'){
 			var scroll = document.id(document.body).getScroll();
 			x += scroll.x;
 			y += scroll.y
 		}
-		this.wrapper.setStyles({
+		wrapper.setStyles({
 			left: x,
 			top: y
 		});
