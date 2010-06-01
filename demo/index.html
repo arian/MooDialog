@@ -77,7 +77,9 @@ window.addEvent('domready',function(){
 
 	$('custom').addEvent('click',function(e){
 		e.stop();
-		$('el').MooDialog();
+		$('el').MooDialog({
+			disposeOnClose: false
+		});
 	});
 	
 	$('confirmLinkClick').confirmLinkClick('Are you sure you want to click this link. (watch the hash in your url)');
