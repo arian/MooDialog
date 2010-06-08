@@ -24,7 +24,7 @@ MooDialog.Request = new Class({
 		this.parent(options);
 		
 		this.setContent(
-			new Element('div').load(url,reqOptions)
+			new Element('div').set('load', reqOptions).load(url)
 		).open();
     }
 });
