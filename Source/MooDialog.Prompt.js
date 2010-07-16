@@ -25,12 +25,12 @@ MooDialog.Prompt = new Class({
 		focus: true
 	},
 
-	initialize: function(msg,fn,options){
+	initialize: function(msg, fn, options){
 		this.parent(options);
 
-		fn = fn ? fn : $empty;
+		fn = fn ? fn : function(){};
 
-		var textInput = new Element('input',{
+		var textInput = new Element('input', {
 			type: 'text',
 			styles: {
 				width: (this.options.size.width - 70)
@@ -40,7 +40,7 @@ MooDialog.Prompt = new Class({
 		this.setContent(
 			new Element('div')
 				.adopt(
-					new Element('p',{
+					new Element('p', {
 						'class': 'MooDialogPromt',
 						text: msg
 					})
@@ -55,7 +55,7 @@ MooDialog.Prompt = new Class({
 							}.bind(this)
 						}
 					}).adopt(textInput).adopt(
-						new Element('input',{
+						new Element('input', {
 							type: 'submit',
 							value: this.options.okText,
 							styles: {
@@ -66,13 +66,9 @@ MooDialog.Prompt = new Class({
 				)
 		).open();
 		
-		if(this.options.focus){
-			this.addEvent('show',function(){
-				textInput.focus();
-			});
-		}
-		
-		
+		if (this.options.focus) this.addEvent('show', function(){
+			textInput.focus();
+		});
 	}
 });
 

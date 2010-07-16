@@ -20,7 +20,7 @@ MooDialog.Request = new Class({
 	
 	Extends: MooDialog,	
   
-	initialize: function(url,reqOptions,options){
+	initialize: function(url, reqOptions, options){
 		this.parent(options);
 		
 		this.setContent(
