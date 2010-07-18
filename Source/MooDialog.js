@@ -115,8 +115,8 @@ var MooDialog = new Class({
 				new Fx.Tween(wrapper, options.fx.options);
 		}
 		this.fx.addEvent('complete', function(){
-			this.fireEvent(this.open ? 'show' : 'hide');
-			if (options.disposeOnClose && !this.open) this.dispose();
+			this.fireEvent(this.opened ? 'show' : 'hide');
+			if (options.disposeOnClose && !this.opened) this.dispose();
 		}.bind(this));
 		
 		this.overlay = new Overlay(document.body, {
@@ -161,7 +161,7 @@ var MooDialog = new Class({
 	},
 
 	open: function(){
-		this.open = true;
+		this.opened = true;
 		this.fireEvent('open');
 		this.fx.start(this.options.fx.open);
 		this.overlay.open();
@@ -176,7 +176,7 @@ var MooDialog = new Class({
 	},
 	
 	close: function(){
-		this.open = false;
+		this.opened = false;
 		this.fireEvent('close');
 		this.fx.start(this.options.fx.close);
 		this.overlay.close();
@@ -205,5 +205,3 @@ Element.implement({
 		return this;
 	}
 });
-
-
