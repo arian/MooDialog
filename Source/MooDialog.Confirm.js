@@ -90,7 +90,9 @@ Element.implement({
 	confirmFormSubmit: function(msg, options){
 		this.addEvent('submit', function(e){
 			e.stop();
-			new MooDialog.Confirm(msg, this.submit, null, options)
+			new MooDialog.Confirm(msg, function(){
+				this.submit();
+			}.bind(this), null, options)
 		}.bind(this));
 		return this;
 	}	
