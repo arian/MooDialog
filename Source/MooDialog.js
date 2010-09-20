@@ -14,6 +14,7 @@ requires:
   - Core/Element
   - Core/Element.Styles
   - Core/Element.Event
+  - Overlay
 
 provides: [MooDialog, Element.MooDialog]
 ...

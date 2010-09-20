@@ -1,6 +1,7 @@
 /*
 ---
-description:     MooDialog
+
+name: MooDialog.Confirm
 
 authors:
   - Arian Stolwijk
@@ -8,11 +9,10 @@ authors:
 license:
   - MIT-style license
 
-requires:
-  core/1.2.4:   '*'
+requires: MooDialog
 
-provides:
-  - [MooDialog.Confirm,Element.confirmLinkClick,Element.confirmFormSubmit]
+provides: [MooDialog.Confirm, Element.confirmLinkClick, Element.confirmFormSubmit]
+
 ...
 */
 
@@ -29,8 +29,8 @@ MooDialog.Confirm = new Class({
 	initialize: function(msg, fn, fn1, options){
 		this.parent(options);
 
-		fn = fn ? fn : function(){};
-		fn1 = fn1 ? fn1 : function(){};
+		if (!fn) fn = function(){};
+		if (!fn1) fn1 = function(){};
 
 		var cancelButton = new Element('input', {
 			type: 'button',

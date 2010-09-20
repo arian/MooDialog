@@ -11,8 +11,7 @@ license:
 requires:
   - MooDialog
 
-provides:
-  - [MooDialog.Alert]
+provides: MooDialog.Alert
 ...
 */
 

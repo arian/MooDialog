@@ -1,6 +1,7 @@
 /*
 ---
-description:     MooDialog
+
+name: MooDialog.Request
 
 authors:
   - Arian Stolwijk
@@ -8,11 +9,10 @@ authors:
 license:
   - MIT-style license
 
-requires:
-  core/1.2.4:   '*'
+requires: [MooDialog, Core/Request.HTML]
 
-provides:
-  - [MooDialog.Request]
+provides: MooDialog.Request
+
 ...
 */
 

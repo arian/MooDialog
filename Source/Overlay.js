@@ -1,6 +1,7 @@
 /*
 ---
-description: Overlay
+
+name: Overlay
 
 authors:
   - David Walsh (http://davidwalsh.name)
@@ -8,8 +9,7 @@ authors:
 license:
   - MIT-style license
 
-requires:
-  core/1.2.1: '*'
+requires: [Core/Class, Core/Element.Style, Core/Element.Event, Core/Element.Dimensions, Core/Fx.Tween]
 
 provides:
   - Overlay

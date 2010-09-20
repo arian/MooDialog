@@ -1,6 +1,7 @@
 /*
 ---
-description:     MooDialog
+
+name: MooDialog.Prompt
 
 authors:
   - Arian Stolwijk
@@ -8,11 +9,10 @@ authors:
 license:
   - MIT-style license
 
-requires:
-  core/1.2.4:   '*'
+requires: MooDialog
 
-provides:
-  - [MooDialog.Prompt]
+provides: MooDialog.Prompt
+
 ...
 */
 
@@ -28,7 +28,7 @@ MooDialog.Prompt = new Class({
 	initialize: function(msg, fn, options){
 		this.parent(options);
 
-		fn = fn ? fn : function(){};
+		if (!fn) fn = function(){};
 
 		var textInput = new Element('input', {
 			type: 'text',
