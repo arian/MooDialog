@@ -5,3 +5,13 @@ category: Interface
 tags: [Dialog,Modal,Box,Alert,Confirm,Ajax,IFrame]
 demo: http://www.aryweb.nl/projects/MooDialog/
 docs: http://github.com/arian/MooDialog/blob/master/README.md
+
+sources:
+  - "Source/MooDialog.js"
+  - "Source/MooDialog.Alert.js"
+  - "Source/MooDialog.Confirm.js"
+  - "Source/MooDialog.Error.js"
+  - "Source/MooDialog.Iframe.js"
+  - "Source/MooDialog.Promt.js"
+  - "Source/MooDialog.Request.js"
+  - "Source/Overlay.js"

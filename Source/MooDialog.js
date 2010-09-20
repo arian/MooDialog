@@ -1,6 +1,7 @@
 /*
 ---
-description:     MooDialog
+
+name: MooDialog
 
 authors:
   - Arian Stolwijk
@@ -9,15 +10,17 @@ license:
   - MIT-style license
 
 requires:
-  core/1.3:   '*'
+  - Core/Class
+  - Core/Element
+  - Core/Element.Styles
+  - Core/Element.Event
 
-provides:
-  - [MooDialog,Element.MooDialog]
+provides: [MooDialog, Element.MooDialog]
 ...
 */
 
 var MooDialog = new Class({
-	
+
 	Implements: [Options,Events],
 
 	options: {
@@ -53,19 +56,19 @@ var MooDialog = new Class({
 
 	initialize: function(options){
 		this.setOptions(options);
-		
-		var options = this.options, 
+
+		var options = this.options,
 			optionsSize = options.size,
 			x = optionsSize.width,
 			y = optionsSize.height,
-			
+
 		wrapper = this.wrapper = new Element('div', {
 			'class': 'MooDialog',
 			styles: {
 				width: x,
 				height: y,
 				position: options.scroll && !Browser.ie6 ? 'fixed' : 'absolute',
-				'z-index': 6000,	
+				'z-index': 6000,
 				opacity: 0
 			}
 		}).inject(document.body);
@@ -85,7 +88,7 @@ var MooDialog = new Class({
 			}).inject(wrapper);
 			wrapper.addClass('MooDialogTitle');
 		}
-		
+
 		if(options.closeButton){
 			this.closeButton = new Element('a',{
 				'class': 'close',
@@ -95,11 +98,11 @@ var MooDialog = new Class({
 			}).inject(wrapper);
 		}
 
-		
+
 		// Set the position of the dialog
 		var docSize = document.id(document.body).getSize();
 		this.setPosition((docSize.x - x)/2,(docSize.y - y)/2);
-		
+
 		// IE 6 scroll
 		if(options.scroll && Browser.ie6){
 			window.addEvent('scroll',function(e){
@@ -109,17 +112,17 @@ var MooDialog = new Class({
 
 		// Add the fade in/out effects if no other effect is defined
 		if(!this.fx){
-			this.fx = options.fx.type == 'morph' ? 
-				new Fx.Morph(wrapper,options.fx.options) : 
+			this.fx = options.fx.type == 'morph' ?
+				new Fx.Morph(wrapper,options.fx.options) :
 				new Fx.Tween(wrapper,options.fx.options);
 		}
 		this.fx.addEvent('complete',function(){
 			this.fireEvent(this.open ? 'show' : 'hide');
 			if (options.disposeOnClose && !this.open) {
 				this.dispose();
-			}			
+			}
 		}.bind(this));
-		
+
 		this.overlay = new Overlay(document.body, {
 			duration: this.options.fx.options.duration
 		});
@@ -141,7 +144,7 @@ var MooDialog = new Class({
 		}
 		return this;
 	},
-	
+
 	setPosition: function(x,y){
 		var options = this.options, wrapper = this.wrapper;
 		x += options.offset.x;
@@ -165,7 +168,7 @@ var MooDialog = new Class({
 		this.fireEvent('open');
 		this.fx.start(this.options.fx.open);
 		this.overlay.open();
-		
+
 		if(this.options.useEscKey){
 			// Add event for the esc key
 			document.id(document.body).addEvent('keydown', function(e){
@@ -174,7 +177,7 @@ var MooDialog = new Class({
 		}
 		return this;
 	},
-	
+
 	close: function(){
 		this.open = false;
 		this.fireEvent('close');
@@ -182,16 +185,16 @@ var MooDialog = new Class({
 		this.overlay.close();
 		return this;
 	},
-	
+
 	dispose: function(){
 		this.wrapper.destroy();
 		this.overlay.overlay.destroy();
 	},
-	
+
 	toElement: function(){
 		return this.wrapper;
 	}
-	
+
 });
 
 

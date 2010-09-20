@@ -1,6 +1,6 @@
 /*
 ---
-description:     MooDialog
+name: MooDialog.Alert
 
 authors:
   - Arian Stolwijk
@@ -9,16 +9,16 @@ license:
   - MIT-style license
 
 requires:
-  core/1.2.4:   '*'
+  - MooDialog
 
 provides:
   - [MooDialog.Alert]
 ...
 */
 
-MooDialog.Alert = new Class({	
-	
-	Extends: MooDialog,	
+MooDialog.Alert = new Class({
+
+	Extends: MooDialog,
 
 	options: {
 		okText: 'Ok',
@@ -27,7 +27,7 @@ MooDialog.Alert = new Class({
 
 	initialize: function(msg,options){
 		this.parent(options);
-		
+
 		var okButton = new Element('input',{
 			type: 'button',
 			events: {
@@ -37,7 +37,7 @@ MooDialog.Alert = new Class({
 			},
 			value: this.options.okText
 		});
-		
+
 		this.setContent(
 			new Element('div').adopt(
 					new Element('p',{
@@ -49,7 +49,7 @@ MooDialog.Alert = new Class({
 						'class': 'buttons'
 					}).adopt(okButton)
 				)
-		).open();	
+		).open();
 
 		if(this.options.focus){
 			this.addEvent('show',function(){
