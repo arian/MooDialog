@@ -17,9 +17,9 @@ provides:
 */
 
 var Overlay = new Class({
-	
+
 	Implements: [Options, Events],
-	
+
 	options: {
 		id: 'overlay',
 		color: '#000',
@@ -33,7 +33,7 @@ var Overlay = new Class({
 		onShow: $empty
 		*/
 	},
-	
+
 	initialize: function(container, options){
 		this.setOptions(options);
 		this.container = document.id(container);
@@ -42,15 +42,15 @@ var Overlay = new Class({
 			'window': {
 				resize: this.resize.bind(this),
 				scroll: this.scroll.bind(this)
-			},			
+			},
 			overlayClick: this.overlayClick.bind(this),
 			tweenStart: this.tweenStart.bind(this),
-			tweenComplete: this.tweenComplete.bind(this)	  
+			tweenComplete: this.tweenComplete.bind(this)
 		};
-		
+
 		this.build().attach();
 	},
-	
+
 	build: function(){
 	  this.overlay = new Element('div', {
 			id: this.options.id,
@@ -63,14 +63,14 @@ var Overlay = new Class({
 				'z-index': this.options.zIndex
 			}
 		}).inject(this.container);
-		this.tween = new Fx.Tween(this.overlay, { 
+		this.tween = new Fx.Tween(this.overlay, {
 			duration: this.options.duration,
 			link: 'cancel',
 			property: 'opacity'
 		});
 	 return this;
 	}.protect(),
-	
+
 	attach: function(){
 		window.addEvents(this.bound.window);
 		this.overlay.addEvent('click', this.bound.overlayClick);
@@ -80,7 +80,7 @@ var Overlay = new Class({
 		});
 	 return this;
 	},
-	
+
 	detach: function(){
 		var args = Array.prototype.slice.call(arguments);
 		args.each(function(item){
@@ -89,12 +89,12 @@ var Overlay = new Class({
 		}, this);
 		return this;
 	},
-	
+
 	overlayClick: function(){
 		this.fireEvent('click');
 		return this;
 	},
-	
+
 	tweenStart: function(){
 		this.overlay.setStyles({
 			width: '100%',
@@ -102,34 +102,34 @@ var Overlay = new Class({
 		});
 	 return this;
 	},
-	
+
 	tweenComplete: function(){
 		this.fireEvent(this.overlay.get('opacity') == this.options.opacity ? 'show' : 'hide');
 		return this;
 	},
-	
+
 	open: function(){
 		this.fireEvent('open');
 		this.tween.start(this.options.opacity);
 		return this;
 	},
-	
+
 	close: function(){
 		this.fireEvent('close');
 		this.tween.start(0);
 		return this;
 	},
-	
+
 	resize: function(){
 		this.fireEvent('resize');
 		this.overlay.setStyle('height', this.container.getScrollSize().y);
 		return this;
 	},
-	
+
 	scroll: function(){
 		this.fireEvent('scroll');
 		if (Browser.ie6) this.overlay.setStyle('left', window.getScroll().x);
 		return this;
 	}
-	
+
 });

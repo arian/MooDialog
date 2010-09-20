@@ -16,16 +16,15 @@ provides:
 ...
 */
 
-MooDialog.Request = new Class({	
-	
-	Extends: MooDialog,	
-  
-	initialize: function(url,reqOptions,options){
+MooDialog.Request = new Class({
+
+	Extends: MooDialog,
+
+	initialize: function(url, reqOptions, options){
 		this.parent(options);
-		
+
 		this.setContent(
 			new Element('div').set('load', reqOptions).load(url)
 		).open();
     }
 });
-

@@ -16,48 +16,42 @@ provides:
 ...
 */
 
-MooDialog.Error = new Class({	
-	
-	Extends: MooDialog,	
-  
+MooDialog.Error = new Class({
+
+	Extends: MooDialog,
+
 	options: {
 		okText: 'Ok',
 		focus: true
 	},
 
-	initialize: function(msg,options){
+	initialize: function(msg, options){
 		this.parent(options);
-		
-		var okButton = new Element('input',{
+
+		var okButton = new Element('input', {
 			type: 'button',
 			events: {
-				click: function(){
-					this.close();
-				}.bind(this)
+				click: this.close.bind(this)
 			},
 			value: this.options.okText
-		});		
+		});
 
 		this.setContent(
 			new Element('div')
 				.adopt(
-					new Element('p',{
+					new Element('p', {
 						'class': 'MooDialogError',
 						text: msg
 					})
 				).adopt(
-					new Element('div',{
+					new Element('div', {
 						'class': 'buttons'
 					}).adopt(okButton)
 				)
 		).open();
-		
-		if(this.options.focus){
-			this.addEvent('show',function(){
-				okButton.focus();
-			});
-		}
+
+		if (this.options.focus) this.addEvent('show', function(){
+			okButton.focus();
+		});
 	}
 });
-
-
