@@ -1,20 +1,14 @@
 /*
 ---
-
 name: MooDialog.Confirm
-
-authors:
-  - Arian Stolwijk
-
-license:
-  - MIT-style license
-
+description: Creates an Confirm Dialog
+authors: Arian Stolwijk
+license:  MIT-style license
 requires: MooDialog
-
 provides: [MooDialog.Confirm, Element.confirmLinkClick, Element.confirmFormSubmit]
-
 ...
 */
+
 
 MooDialog.Confirm = new Class({
 
@@ -28,56 +22,40 @@ MooDialog.Confirm = new Class({
 
 	initialize: function(msg, fn, fn1, options){
 		this.parent(options);
+		var emptyFn = function(){},
+			self = this;
 
-		if (!fn) fn = function(){};
-		if (!fn1) fn1 = function(){};
-
-		var cancelButton = new Element('input', {
-			type: 'button',
-			events: {
-				click: function(){
-					fn1();
-					this.close();
-				}.bind(this)
-			},
-			value: this.options.cancelText
+		var buttons = [
+			{fn: fn || emptyFn, txt: this.options.okText},
+			{fn: fn1 || emptyFn, txt: this.options.cancelText}
+		].map(function(button){
+			return new Element('input[type=button]', {
+				events: {
+					click: function(){
+						button.fn();
+						self.close();
+					}
+				},
+				value: button.txt
+			});
 		});
 
 		this.setContent(
-			new Element('div')
-				.adopt(
-					new Element('p', {
-						'class': 'MooDialogConfirm',
-						text: msg
-					})
-				).adopt(
-					new Element('div', {
-						'class': 'buttons'
-					}).adopt(cancelButton).adopt(
-						new Element('input', {
-							type: 'button',
-							events: {
-								click: function(){
-									fn();
-									this.close();
-								}.bind(this)
-							},
-							value: this.options.okText
-						})
-					)
-				)
-		).open();
+			new Element('p.MooDialogConfirm', {text: msg}),
+			new Element('div.buttons').adopt(buttons)
+		);
+		if (this.options.autoOpen) this.open();
 
-		if(this.options.focus){
-			this.addEvent('show', function(){
-				cancelButton.focus();
-			});
-		}
+		if(this.options.focus) this.addEvent('show', function(){
+			buttons[1].focus();
+		});
+
 	}
 });
 
 
 Element.implement({
+
 	confirmLinkClick: function(msg, options){
 		this.addEvent('click', function(e){
 			e.stop();
@@ -87,6 +65,7 @@ Element.implement({
 		});
 		return this;
 	},
+
 	confirmFormSubmit: function(msg, options){
 		this.addEvent('submit', function(e){
 			e.stop();
@@ -96,4 +75,5 @@ Element.implement({
 		}.bind(this));
 		return this;
 	}
+
 });

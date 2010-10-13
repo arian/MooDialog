@@ -9,108 +9,136 @@
 
 <link  href="../Source/css/MooDialog.css" rel="stylesheet" type="text/css" media="screen" />
 
+<style>
+.myDialog {
+	margin: -200px 0 0 -350px;
+	width: 700px;
+	height: 400px;
+}
+
+.myDialog iframe {
+	width: 700px;
+	height: 400px;
+}
+</style>
 
 <script src="mootools-core-1.3.js" type="text/javascript"></script>
 <script src="../Source/Overlay.js" type="text/javascript"></script>
-<script src="../Source/MooDialog.js" type="text/javascript"></script>
-<script src="../Source/MooDialog.Alert.js" type="text/javascript"></script>
 
+<script src="../Source/MooDialog.js" type="text/javascript"></script>
+<script src="../Source/MooDialog.Fx.js" type="text/javascript"></script>
+
+<script src="../Source/MooDialog.Alert.js" type="text/javascript"></script>
 <script src="../Source/MooDialog.Confirm.js" type="text/javascript"></script>
 <script src="../Source/MooDialog.Error.js" type="text/javascript"></script>
 <script src="../Source/MooDialog.Prompt.js" type="text/javascript"></script>
-<script src="../Source/MooDialog.Iframe.js" type="text/javascript"></script>
+<script src="../Source/MooDialog.IFrame.js" type="text/javascript"></script>
 <script src="../Source/MooDialog.Request.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-<!-- 
+<!--
 
-window.addEvent('domready',function(){
+window.addEvent('domready', function(){
 
-	$('alert').addEvent('click',function(e){
+	$('alert').addEvent('click', function(e){
 		e.stop();
 		var box = new MooDialog.Alert('This is an alert message');
-		
+
 	});
-	
-	$('confirm').addEvent('click',function(e){
+
+	$('confirm').addEvent('click', function(e){
 		e.stop();
-		new MooDialog.Confirm('Are you sure you want to do this?',function(){
+		new MooDialog.Confirm('Are you sure you want to do this?', function(){
 			new MooDialog.Alert('You are!');
 		},function(){
 			new MooDialog.Alert('You are not');
 		});
 	});
 
-	$('prompt').addEvent('click',function(e){
+	$('prompt').addEvent('click', function(e){
 		e.stop();
 		new MooDialog.Prompt('What is your name?',function(ret){
 			new MooDialog.Alert('Your name is '+ ret);
 		});
 	});
-	
-	$('error').addEvent('click',function(e){
+
+	$('error').addEvent('click', function(e){
 		e.stop();
 		new MooDialog.Error('O No, What have you done!?');
 	});
 
-	$('customized').addEvent('click',function(e){
+	$('customized').addEvent('click', function(e){
 		e.stop();
 		new MooDialog.Alert('This is a customized dialog',{
 			title: 'Alert',
-			fx: {
-				type: 'morph',
-				open: {
-					'margin-top': [-100,0],
-					opacity: [0,1]
-				},
-				close: {
-					'margin-top': [0,100],
-					opacity: 0
-				},
-				options: {
+			onInitialize: function(wrapper){
+				wrapper.setStyle('opacity', 0);
+				this.fx = new Fx.Morph(wrapper, {
 					duration: 600,
 					transition: Fx.Transitions.Bounce.easeOut
-				}
+				});
+				this.overlay = new Overlay(this.options.inject, {
+					duration: this.options.duration
+				});
+				if (this.options.closeOnOverlayClick) this.overlay.addEvent('click', this.close.bind(this));
+			},
+			onBeforeOpen: function(){
+				this.overlay.open();
+				this.fx.start({
+					'margin-top': [-200, -100],
+					opacity: [0, 1]
+				}).chain(function(){
+					this.fireEvent('show');
+				}.bind(this));
+			},
+			onBeforeClose: function(){
+				this.fx.start({
+					'margin-top': [-100, 0],
+					opacity: 0
+				}).chain(function(){
+					this.fireEvent('hide');
+				}.bind(this));
+				this.overlay.close();
 			},
 			okText: 'It is really cool indeed!'
 		});
 	});
 
-	$('custom').addEvent('click',function(e){
+	$('custom').addEvent('click', function(e){
 		e.stop();
 		$('el').MooDialog({
-			disposeOnClose: false
+			destroyOnHide: false
 		});
 	});
-	
+
 	$('confirmLinkClick').confirmLinkClick('Are you sure you want to click this link. (watch the hash in your url)');
 
 	$('formId').confirmFormSubmit('Are you sure you want to submit this form. (watch the hash in your url)');
 
-	$('iframe').addEvent('click',function(e){
+	$('iframe').addEvent('click', function(e){
 		e.stop();
-		new MooDialog.Iframe('http://www.mootools.net',{
+		new MooDialog.Iframe('http://www.mootools.net', {
 			title: 'MooTools.net',
-			size: {
-				width: 700,
-				height: 400
-			}
+			'class': 'MooDialog myDialog'
 		});
 	});
-	
-	$('request').addEvent('click',function(e){
+
+	$('request').addEvent('click', function(e){
 		e.stop();
-		new MooDialog.Request('requestDemoText.php',null,{
-			size: {
-				width: 700,
-				height: 400
+		var reqDialog = new MooDialog.Request('requestDemoText.php', null, {
+			'class': 'MooDialog myDialog',
+			autoOpen: false
+		});
+		reqDialog.setRequestOptions({
+			onRequest: function(){
+				reqDialog.setContent('loading...');
 			}
-		});			
+		}).open();
 	});
 
 });
-	
-// -->	
+
+// -->
 </script>
 
 
@@ -163,38 +191,54 @@ window.addEvent('domready',function(){
 
 <p>
 	You can set a title too or customize the fx.
+	It is recommended to set the onInitialize, onBeforeOpen and onBeforeClose options as default options of
+	MooDialog with <code>MooDialog.implement('options', {...});</code>.
 	<a href="#" id="customized">Customized</a>
 </p>
 <pre>
 	new MooDialog.Alert('This is a customized dialog',{
 		title: 'Alert',
-		fx: {
-			type: 'morph',
-			open: {
-				'margin-top': [-100,0],
-				opacity: [0,1]
-			},
-			close: {
-				'margin-top': [0,100],
-				opacity: 0
-			},
-			options: {
+		onInitialize: function(wrapper){
+			wrapper.setStyle('opacity', 0);
+			this.fx = new Fx.Morph(wrapper, {
 				duration: 600,
 				transition: Fx.Transitions.Bounce.easeOut
-			}
-		}
+			});
+			this.overlay = new Overlay(this.options.inject, {
+				duration: this.options.duration
+			});
+			if (this.options.closeOnOverlayClick) this.overlay.addEvent('click', this.close.bind(this));
+		},
+		onBeforeOpen: function(){
+			this.overlay.open();
+			this.fx.start({
+				'margin-top': [-200, -100],
+				opacity: [0, 1]
+			}).chain(function(){
+				this.fireEvent('show');
+			}.bind(this));
+		},
+		onBeforeClose: function(){
+			this.fx.start({
+				'margin-top': [-100, 0],
+				opacity: 0
+			}).chain(function(){
+				this.fireEvent('hide');
+			}.bind(this));
+			this.overlay.close();
+		},
 		okText: 'It is really cool indeed!'
 	});
 </pre>
 
 
 <p>
-	<a href="#" id="custom">Create a Dialog from an Element:</a> 
+	<a href="#" id="custom">Create a Dialog from an Element:</a>
 	<strong id="el">This element will get into the Dialog</strong>
 </p>
 <pre>
 	new Element('div',{text: 'This is a custom element'}).MooDialog();
-	
+
 	// Or an existing element from the DOM
 	$('el').MooDialog();
 </pre>
@@ -227,10 +271,7 @@ window.addEvent('domready',function(){
 <pre>
 	new MooDialog.Iframe('http://www.mootools.net',{
 		title: 'MooTools.net',
-		size: {
-			width: 700,
-			height: 400
-		}
+		'class': 'MooDialog myDialog'
 	});
 </pre>
 
@@ -239,12 +280,16 @@ window.addEvent('domready',function(){
 </p>
 
 <pre>
-	new MooDialog.Request('requestDemoText.html',{
-		size: {
-			width: 700,
-			height: 400
+	var reqDialog = new MooDialog.Request('requestDemoText.php', null, {
+		'class': 'MooDialog myDialog',
+		autoOpen: false
+	});
+	// You want the request dialog instance to set the onRequest message, so you have to do it in two steps.
+	reqDialog.setRequestOptions({
+		onRequest: function(){
+			reqDialog.setContent('loading...');
 		}
-	});	
+	}).open();
 </pre>
 
 <h2>Options</h2>

@@ -1,20 +1,14 @@
 /*
 ---
-
 name: MooDialog.Prompt
-
-authors:
-  - Arian Stolwijk
-
-license:
-  - MIT-style license
-
+description: Creates a Prompt dialog
+authors: Arian Stolwijk
+license:  MIT-style license
 requires: MooDialog
-
 provides: MooDialog.Prompt
-
 ...
 */
+
 
 MooDialog.Prompt = new Class({
 
@@ -27,44 +21,23 @@ MooDialog.Prompt = new Class({
 
 	initialize: function(msg, fn, options){
 		this.parent(options);
-
 		if (!fn) fn = function(){};
 
-		var textInput = new Element('input', {
-			type: 'text',
-			styles: {
-				width: (this.options.size.width - 70)
-			}
-		});
+		var textInput = new Element('input.textInput', {type: 'text'}),
+			submitButton = new Element('input[type=submit]', {value: this.options.okText}),
+			formEvents = {
+				submit: function(e){
+					e.stop();
+					fn(textInput.get('value'));
+					this.close();
+				}.bind(this)
+			};
 
 		this.setContent(
-			new Element('div')
-				.adopt(
-					new Element('p', {
-						'class': 'MooDialogPromt',
-						text: msg
-					})
-				).adopt(
-					new Element('form',{
-						'class': 'buttons',
-						events: {
-							submit: function(e){
-								e.stop();
-								fn(textInput.get('value'));
-								this.close();
-							}.bind(this)
-						}
-					}).adopt(textInput).adopt(
-						new Element('input', {
-							type: 'submit',
-							value: this.options.okText,
-							styles: {
-								width: 40
-							}
-						})
-					)
-				)
-		).open();
+			new Element('p.MooDialogPromt', {text: msg}),
+			new Element('form.buttons', {events: formEvents}).adopt(textInput, submitButton)
+		);
+		if (this.options.autoOpen) this.open();
 
 		if (this.options.focus) this.addEvent('show', function(){
 			textInput.focus();

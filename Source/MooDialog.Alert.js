@@ -1,19 +1,14 @@
 /*
 ---
 name: MooDialog.Alert
-
-authors:
-  - Arian Stolwijk
-
-license:
-  - MIT-style license
-
-requires:
-  - MooDialog
-
+description: Creates an Alert dialog
+authors: Arian Stolwijk
+license:  MIT-style license
+requires: MooDialog
 provides: MooDialog.Alert
 ...
 */
+
 
 MooDialog.Alert = new Class({
 
@@ -21,14 +16,14 @@ MooDialog.Alert = new Class({
 
 	options: {
 		okText: 'Ok',
-		focus: true
+		focus: true,
+		textPClass: 'MooDialogAlert'
 	},
 
 	initialize: function(msg, options){
 		this.parent(options);
 
-		var okButton = new Element('input', {
-			type: 'button',
+		var okButton = new Element('input[type=button]', {
 			events: {
 				click: this.close.bind(this)
 			},
@@ -36,17 +31,10 @@ MooDialog.Alert = new Class({
 		});
 
 		this.setContent(
-			new Element('div').adopt(
-					new Element('p', {
-						'class': 'MooDialogAlert',
-						text: msg
-					})
-				).adopt(
-					new Element('div', {
-						'class': 'buttons'
-					}).adopt(okButton)
-				)
-		).open();
+			new Element('p.' + this.options.textPClass, {text: msg}),
+			new Element('div.buttons').adopt(okButton)
+		);
+		if (this.options.autoOpen) this.open();
 
 		if (this.options.focus) this.addEvent('show', function(){
 			okButton.focus()
