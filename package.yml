@@ -13,6 +13,7 @@ description: MooTools Dialog/Modal Classes
 
 sources:
   - "Source/MooDialog.js"
+  - "Source/MooDialog.Fx.js"
   - "Source/MooDialog.Alert.js"
   - "Source/MooDialog.Confirm.js"
   - "Source/MooDialog.Error.js"
