@@ -166,9 +166,9 @@ window.addEvent('domready', function(){
 	<a href="#" id="confirm">Click here for a confirm message</a>
 </p>
 <pre>
-	new MooDialog.Confirm('Are you sure you want to do this?',function(){
+	new MooDialog.Confirm('Are you sure you want to do this?', function(){
 		new MooDialog.Alert('You are!')
-	},function(){
+	}, function(){
 		new MooDialog.Alert('You are not');
 	});
 </pre>
@@ -177,7 +177,7 @@ window.addEvent('domready', function(){
 	<a href="#" id="prompt">Click here for a prompt message</a>
 </p>
 <pre>
-	new MooDialog.Prompt('What is your name?',function(ret){
+	new MooDialog.Prompt('What is your name?', function(ret){
 		new MooDialog.alert('Your name is '+ ret);
 	});
 </pre>
@@ -237,7 +237,7 @@ window.addEvent('domready', function(){
 	<strong id="el">This element will get into the Dialog</strong>
 </p>
 <pre>
-	new Element('div',{text: 'This is a custom element'}).MooDialog();
+	new Element('div', {text: 'This is a custom element'}).MooDialog();
 
 	// Or an existing element from the DOM
 	$('el').MooDialog();
@@ -269,7 +269,7 @@ window.addEvent('domready', function(){
 	<a href="#" id="iframe">MooTools.net in an IFrame</a>
 </p>
 <pre>
-	new MooDialog.Iframe('http://www.mootools.net',{
+	new MooDialog.IFrame('http://www.mootools.net', {
 		title: 'MooTools.net',
 		'class': 'MooDialog myDialog'
 	});
@@ -291,45 +291,6 @@ window.addEvent('domready', function(){
 		}
 	}).open();
 </pre>
-
-<h2>Options</h2>
-
-<p>
-	In every last parameter you can set the following options.
-</p>
-
-<pre>
-{
-	size: {
-		width: 300,
-		height: 100
-	},
-	offset: {
-		x: 0,
-		y: -100
-	},
-	title: null,
-	scroll: true,
-	useEscKey: true,
-	disposeOnClose: true,
-	closeButton: true,
-	fx: {
-		type: 'tween',
-		open: 1,
-		close: 0,
-		options: {
-			property: 'opacity',
-			duration: 400
-		}
-	},
-	focus: true, // Only MooDialog.Alert, MooDialog.Confirm,MooDialog.Error and MooDialog.Prompt
-	okText: 'Ok', // Only MooDialog.Alert, MooDialog.Confirm,MooDialog.Error and MooDialog.Prompt
-	cancelText: 'Cancel' // Only MooDialog.Confirm /*,
-	onOpen: $empty,
-	onClose: $empty,
-	onShow: $empty,
-	onHide: $empty*/
-}</pre>
 
 <h2>Docs</h2>
 
