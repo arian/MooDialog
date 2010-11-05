@@ -16,7 +16,8 @@ MooDialog.Prompt = new Class({
 
 	options: {
 		okText: 'Ok',
-		focus: true
+		focus: true,
+		textPClass: 'MooDialogPrompt'
 	},
 
 	initialize: function(msg, fn, options){
@@ -34,7 +35,7 @@ MooDialog.Prompt = new Class({
 			};
 
 		this.setContent(
-			new Element('p.MooDialogPromt', {text: msg}),
+			new Element('p.' + this.options.textPClass, {text: msg}),
 			new Element('form.buttons', {events: formEvents}).adopt(textInput, submitButton)
 		);
 		if (this.options.autoOpen) this.open();

@@ -17,7 +17,8 @@ MooDialog.Confirm = new Class({
 	options: {
 		okText: 'Ok',
 		cancelText: 'Cancel',
-		focus: true
+		focus: true,
+		textPClass: 'MooDialogConfirm'
 	},
 
 	initialize: function(msg, fn, fn1, options){
@@ -41,7 +42,7 @@ MooDialog.Confirm = new Class({
 		});
 
 		this.setContent(
-			new Element('p.MooDialogConfirm', {text: msg}),
+			new Element('p.' + this.options.textPClass, {text: msg}),
 			new Element('div.buttons').adopt(buttons)
 		);
 		if (this.options.autoOpen) this.open();
