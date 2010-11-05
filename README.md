@@ -87,7 +87,7 @@ In every last parameter you can set the following options.
 
 
 
-### setContent
+### MooDialog method: setContent
 
 With this method you can set the content of the dialog.
 
@@ -104,7 +104,7 @@ With this method you can set the content of the dialog.
 
  - MooDialog instance
 
-### open
+### MooDialog method: open
 
 With this method you open the dialog. It will fire the `beforeOpen` and `open` events.
 It will fire the `show` event if the dialog is actually opened.
@@ -113,7 +113,7 @@ It will fire the `show` event if the dialog is actually opened.
 	dialog.open();
 
 
-### close
+### MooDialog method: close
 
 With this method you close the dialog. It will fire the `beforeClos` and `close` events.
 If the dialog is actually closed, it will fire the `hide` event.
@@ -121,7 +121,7 @@ If the dialog is actually closed, it will fire the `hide` event.
 	#JS
 	dialog.close();
 
-### destroy
+### MooDialog method: destroy
 
 Removes the dialog from the DOM
 
@@ -129,7 +129,7 @@ Removes the dialog from the DOM
 	dialog.destroy();
 
 
-### toElement
+### MooDialog method: toElement
 
 This method returns the dialog wrapper element
 
@@ -138,8 +138,7 @@ This method returns the dialog wrapper element
 	$(myDialog);
 
 
-Element.MooDialog
------------------
+### Element method: MooDialog
 
 Create a dialog from an element
 
@@ -202,7 +201,7 @@ Javascript
 4. textPClass: (*string*, defaults to `MooDialogConfirm`) The CSS Classname of the paragraph element containing the text
 
 
-### Element.confirmLinkClick
+### Element method: confirmLinkClick
 
 Create a confirm dialog if the user really want to follow this link
 
@@ -210,7 +209,7 @@ Create a confirm dialog if the user really want to follow this link
 	$('confirmDelete').confirmLinkClick('Are you sure you want to click this link');
 
 
-### Element.confirmFormSubmit
+### Element method: confirmFormSubmit
 
 Create a confirm dialog if the user try to submit a form
 
@@ -300,7 +299,7 @@ Javascript
 	new MooDialog.Request('exampleText.html');
 
 
-### setRequestOptions
+### MooDialog.Request method: setRequestOptions
 
 Because you cannot refer to the dialog instance if you put the requestopions as second argument, this is a separate method to set them.
 This helps you to change the content of the dialog on for example the `onRequest` event of Request.
@@ -318,5 +317,5 @@ Requirements
 ------------
 
 * [MooTools Core 1.3](http://mootools.net/core)
-* [Overlay](http://mootools.net/forge/p/overlay)
+* [Overlay](http://mootools.net/forge/p/overlay) (included by default)
 
