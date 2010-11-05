@@ -74,7 +74,7 @@ var MooDialog = new Class({
 		}
 		/*</ie6>*/
 
-		if (this.options.useEscKey){
+		if (options.useEscKey){
 			// Add event for the esc key
 			document.addEvent('keydown', function(e){
 				if (e.key == 'esc') this.close();
@@ -85,7 +85,7 @@ var MooDialog = new Class({
 			if (options.destroyOnHide) this.destroy();
 		}.bind(this));
 
-		this.fireEvent('initialize', this.wrapper);
+		this.fireEvent('initialize', wrapper);
 	},
 
 	setContent: function(){
@@ -125,10 +125,12 @@ var MooDialog = new Class({
 
 
 Element.implement({
+
 	MooDialog: function(options){
 		this.store('MooDialog',
 			new MooDialog(options).setContent(this).open()
 		);
 		return this;
 	}
+
 });
