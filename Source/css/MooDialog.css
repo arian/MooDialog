@@ -1,18 +1,17 @@
 /* Created by Arian Stolwijk <http://www.aryweb.nl> */
 
 .MooDialog {
-/*	position: fixed;*/
+	position: fixed;
 	width: 300px;
 	height: 100px;
-	position: fixed;
-	margin: -150px 0 0 -150px;
 	top: 50%;
 	left: 50%;
+	margin: -150px 0 0 -150px;
+	padding: 10px;
 	z-index: 50000;
 
 	background: #eef5f8;
 	color: black;
-	padding: 10px;
 	border-radius: 7px;
 	-moz-border-radius: 7px;
 	-webkit-border-radius: 7px;
@@ -36,6 +35,7 @@
 	left: 0;
 	right: 0;
 	padding: 3px 20px;
+
 	background: #b7c4dc;
 	border-bottom: 1px solid #a1aec5;
 	font-weight: bold;
@@ -47,22 +47,23 @@
 }
 
 .MooDialog .close {
-	background: url(dialog-close.png) no-repeat;
+	position: absolute;
 	width: 16px;
 	height: 16px;
-	display: block;
-	cursor: pointer;
 	top: -5px;
 	left: -5px;
-	position: absolute;
+
+	background: url(dialog-close.png) no-repeat;
+	display: block;
+	cursor: pointer;
 }
 
 .MooDialog .buttons {
-	text-align: right;
 	margin: 0;
 	padding: 0;
 	border: 0;
 	background: none;
+	text-align: right;
 }
 
 .MooDialog .iframe {
@@ -79,9 +80,9 @@
 .MooDialog .MooDialogConfirm,
 .MooDialog .MooDialogPrompt,
 .MooDialog .MooDialogError {
-	background: url(dialog-warning.png) no-repeat;
 	padding-left: 40px;
 	min-height: 40px;
+	background: url(dialog-warning.png) no-repeat;
 }
 
 .MooDialog .MooDialogConfirm,
@@ -92,4 +93,3 @@
 .MooDialog .MooDialogError {
 	background: url(dialog-error.png) no-repeat;
 }
-
