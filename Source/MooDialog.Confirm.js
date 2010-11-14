@@ -30,14 +30,14 @@ MooDialog.Confirm = new Class({
 			{fn: fn || emptyFn, txt: this.options.okText},
 			{fn: fn1 || emptyFn, txt: this.options.cancelText}
 		].map(function(button){
-			return new Element('input[type=button]', {
+			return new Element('button', {
 				events: {
 					click: function(){
 						button.fn();
 						self.close();
 					}
 				},
-				value: button.txt
+				text: button.txt
 			});
 		});
 
