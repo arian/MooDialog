@@ -86,7 +86,7 @@
 }
 
 .MooDialog .MooDialogConfirm,
-.MooDialog .MooDialogPromt {
+.MooDialog .MooDialogPrompt {
 	background: url(dialog-question.png) no-repeat;
 }
 
