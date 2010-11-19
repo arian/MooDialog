@@ -123,11 +123,15 @@ window.addEvent('domready', function(){
 		});
 	});
 
+	var i = 1;
 	$('request').addEvent('click', function(e){
 		e.stop();
 		var reqDialog = new MooDialog.Request('requestDemoText.php', null, {
 			'class': 'MooDialog myDialog',
-			autoOpen: false
+			autoOpen: false,
+			onContentChange: function(){
+				$('result').set('text', 'The content event has fired ' + (i++) +' times');
+			}
 		});
 		reqDialog.setRequestOptions({
 			onRequest: function(){
@@ -279,10 +283,16 @@ window.addEvent('domready', function(){
 	<a href="#" id="request">Get Content by a Ajax Request</a> (needs the Request.HTML object)
 </p>
 
+<p id="result"></p>
+
 <pre>
+	var i = 1;
 	var reqDialog = new MooDialog.Request('requestDemoText.php', null, {
 		'class': 'MooDialog myDialog',
-		autoOpen: false
+		autoOpen: false,
+		onContentChange: function(){
+			$('result').set('text', 'The content event has fired ' + (i++) +' times');
+		}
 	});
 	// You want the request dialog instance to set the onRequest message, so you have to do it in two steps.
 	reqDialog.setRequestOptions({

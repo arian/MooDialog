@@ -84,7 +84,7 @@ In every last parameter you can set the following options.
 - beforeClose: Fires before the dialog closes. You can overwrite this default event to change the behavior how the dialog closes.
 - close: When the dialog gets closed
 - hide: When the dialog is totally hidden
-
+- contentChange: Fires when the content has changed. Especially useful with the MooDialog.Request class.
 
 
 ### MooDialog method: setContent

@@ -27,7 +27,7 @@ MooDialog.Request = new Class({
 
 		if (this.options.autoOpen) this.open();
 
-    },
+	},
 
 	setRequestOptions: function(options){
 		this.requestOptions = Object.merge(this.requestOptions, options);
