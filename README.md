@@ -6,7 +6,7 @@ You can use it also for other DOM elements, create an IFrame dialog or even crea
 
 As of version 0.7 MooDialog uses MooTools 1.3 and is not compatible with MooTools 1.2.
 
-![Screenshot](http://github.com/arian/MooDialog/raw/master/screenshot.png)
+![Screenshot](https://github.com/arian/MooDialog/raw/master/screenshot.png)
 
 How to use
 ----------
