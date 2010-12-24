@@ -17,14 +17,15 @@ MooDialog.Prompt = new Class({
 	options: {
 		okText: 'Ok',
 		focus: true,
-		textPClass: 'MooDialogPrompt'
+		textPClass: 'MooDialogPrompt',
+		defaultValue: ''
 	},
 
 	initialize: function(msg, fn, options){
 		this.parent(options);
 		if (!fn) fn = function(){};
 
-		var textInput = new Element('input.textInput', {type: 'text'}),
+		var textInput = new Element('input.textInput', {type: 'text', value: this.options.defaultValue}),
 			submitButton = new Element('input[type=submit]', {value: this.options.okText}),
 			formEvents = {
 				submit: function(e){

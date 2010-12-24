@@ -240,7 +240,7 @@ Javascript
 1. okText: (*string*, defaults to `Ok`) The text for the OK button
 2. focus: (*boolean*, defaults to `true`) If true, the input field will focus when the dialog shows.
 3. textPClass: (*string*, defaults to `MooDialogPrompt`) The CSS Classname of the paragraph element containing the text
-
+4. defaultValue: (*string*) The default value of the input field
 
 Class: MooDialog.Error
 ----------------------
