@@ -80,9 +80,12 @@ var MooDialog = new Class({
 
     if(this.options.autosize)
     {
-      this.content.setStyles({'width': this.size.x, 'height': this.size.y});
+      this.content.setStyles({
+        'width': this.size.x, 'height': this.size.y,
+        'overflow': 'auto'
+      });
       this.wrapper.setStyles({
-        'position': 'absolute', 'overflow': 'auto',
+        'position': 'absolute', 'overflow': 'visible',
         'top': 0, 'left': 0, 'margin': 0,
         'width': this.size.x, 'height': this.size.y
       });
@@ -139,7 +142,7 @@ var MooDialog = new Class({
 		if (['string', 'number'].contains(type)) this.content.set('text', content);
 		else this.content.adopt(content);
 
-    this.computePosition();
+    if (this.options.autosize) this.computePosition();
 
 		this.fireEvent('contentChange', this.content);
 
