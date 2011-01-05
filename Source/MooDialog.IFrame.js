@@ -27,12 +27,7 @@ MooDialog.IFrame = new Class({
       frameborder: 0,
       scrolling: this.options.useScrollBar ? 'auto' : 'no'
     });
-    if (this.options.autosize){
-      this.iframe.setStyles({
-        'width': this.size.x, 'height': this.size.y
-      });
-    }
 		this.setContent(this.iframe);
 		if (this.options.autoOpen){ this.open(); }
-  }
+  }  
 });

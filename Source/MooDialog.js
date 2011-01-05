@@ -52,44 +52,10 @@ var MooDialog = new Class({
 		this.options.inject = this.options.inject || document.body;
 		options = this.options;
     
-    if(this.options.autosize)
-    {
-      this.size = {};
-      // Autosize stuff
-      if(this.options.scale == 'max' || this.options.scale > 0.85)
-      {
-        this.size.x = window.getSize().x * 0.85;
-        this.size.y = window.getSize().y * 0.85;
-      }
-      else if(0 < this.options.scale  && this.options.scale <= 0.85)
-      {
-        this.size.x = window.getSize().x * this.options.scale;
-        this.size.y = window.getSize().y * this.options.scale;
-      }
-      else if(this.options.scale == 'min' || this.options.scale === 0)
-      {
-        this.size.x = 'auto';
-        this.size.y = 'auto';
-      }
-    }
-
 		this.wrapper = new Element(
       'div.' + options['class'].replace(' ', '.')
     );
 		this.content = new Element('div.content').inject(this.wrapper);
-
-    if(this.options.autosize)
-    {
-      this.content.setStyles({
-        'width': this.size.x, 'height': this.size.y,
-        'overflow': 'auto'
-      });
-      this.wrapper.setStyles({
-        'position': 'absolute', 'overflow': 'visible',
-        'top': 0, 'left': 0, 'margin': 0,
-        'width': this.size.x, 'height': this.size.y
-      });
-    }
 
 		if (options.title){
 			this.title = new Element('div.title').set('text', options.title).inject(this.wrapper);
@@ -142,7 +108,11 @@ var MooDialog = new Class({
 		if (['string', 'number'].contains(type)){ this.content.set('text', content); }
 		else{ this.content.adopt(content); }
 
-    if (this.options.autosize){ this.computePosition(); }
+    if (this.options.autosize)
+    {
+      this.setSize();
+      this.center();
+    }
 
 		this.fireEvent('contentChange', this.content);
 
@@ -150,6 +120,11 @@ var MooDialog = new Class({
 	},
 
 	open: function(){
+    if (this.options.autosize)
+    {
+      this.setSize();
+      this.center();
+    }
 		this.fireEvent('beforeOpen', this.wrapper).fireEvent('open');
 		this.opened = true;
 		return this;
@@ -169,44 +144,42 @@ var MooDialog = new Class({
 		return this.wrapper;
 	},
 
-  computePosition: function()
-	{
-	  var docSize = document.id(document.body).getSize();
-	  //console.log(this.wrapper.getStyle('width'));
-		if(this.options.scale == 'min')
-		{
-		  this.setPosition(
-		    (docSize.x - this.wrapper.getSize().x)/2,
-		    (docSize.y - this.wrapper.getSize().y)/2,
-		    true
-		  );
-		}
-		else
-		{
-		  this.setPosition(
-		    (docSize.x - this.size.x)/2,
-		    (docSize.y - this.size.y)/2,
-		    true
-		  );
-		}
-		//console.log(this.options.size);
-	},
-	
-	setPosition: function(x,y,relative){
-		x = x + this.options.offset.x;
-		y = y + this.options.offset.y;
-		x = x < 20 ? 20 : x;
-		y = y < 20 ? 20 : y;
-		if(relative){
-			var scroll = document.id(document.body).getScroll();
-			x = x + scroll.x;
-			y = y + scroll.y;
-		}
-		this.wrapper.setStyles({
-      left: x, top: y
-		});
-		return this;
-	}
+  setSize: function()
+  {
+    size = {};
+    // Autosize stuff
+    if(this.options.scale == 'max' || this.options.scale > 0.85)
+    {
+      size.x = window.getSize().x * 0.85;
+      size.y = window.getSize().y * 0.85;
+    }
+    else if(0 < this.options.scale  && this.options.scale <= 0.85)
+    {
+      size.x = window.getSize().x * this.options.scale;
+      size.y = window.getSize().y * this.options.scale;
+    }
+    else if(this.options.scale == 'min' || this.options.scale === 0)
+    {
+      size.x = 'auto';
+      size.y = 'auto';
+    }
+    this.content.setStyles({
+      'width': size.x, 'height': size.y
+    });
+    this.wrapper.setStyles({
+      'width': size.x, 'height': size.y
+    });
+  },
+
+  center: function()
+  {
+    var size = this.wrapper.getSize();
+    this.wrapper.setStyles({
+      'margin-left': - size.x/2,
+      'margin-top': - size.y/2
+    });
+  }
+
 
 });
 
