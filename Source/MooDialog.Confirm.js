@@ -45,11 +45,14 @@ MooDialog.Confirm = new Class({
 			new Element('p.' + this.options.textPClass, {text: msg}),
 			new Element('div.buttons').adopt(buttons)
 		);
-		if (this.options.autoOpen) this.open();
+		if (this.options.autoOpen){ this.open(); }
 
-		if(this.options.focus) this.addEvent('show', function(){
-			buttons[1].focus();
-		});
+		if(this.options.focus)
+    {
+      this.addEvent('show', function(){
+			  buttons[1].focus();
+		  });
+    }
 
 	}
 });
@@ -60,9 +63,9 @@ Element.implement({
 	confirmLinkClick: function(msg, options){
 		this.addEvent('click', function(e){
 			e.stop();
-			new MooDialog.Confirm(msg, function(){
+			var d = new MooDialog.Confirm(msg, function(){
 				location.href = this.get('href');
-			}.bind(this), null, options)
+			}.bind(this), null, options);
 		});
 		return this;
 	},
@@ -70,9 +73,9 @@ Element.implement({
 	confirmFormSubmit: function(msg, options){
 		this.addEvent('submit', function(e){
 			e.stop();
-			new MooDialog.Confirm(msg, function(){
+			var d = new MooDialog.Confirm(msg, function(){
 				this.submit();
-			}.bind(this), null, options)
+			}.bind(this), null, options);
 		}.bind(this));
 		return this;
 	}

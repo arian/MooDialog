@@ -25,7 +25,7 @@ MooDialog.Request = new Class({
 			});
 		}.bind(this));
 
-		if (this.options.autoOpen) this.open();
+		if (this.options.autoOpen){ this.open(); }
 
 	},
 

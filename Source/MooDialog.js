@@ -66,7 +66,7 @@ var MooDialog = new Class({
         this.size.x = window.getSize().x * this.options.scale;
         this.size.y = window.getSize().y * this.options.scale;
       }
-      else if(this.options.scale == 'min' || this.options.scale == 0)
+      else if(this.options.scale == 'min' || this.options.scale === 0)
       {
         this.size.x = 'auto';
         this.size.y = 'auto';
@@ -121,12 +121,12 @@ var MooDialog = new Class({
 		if (options.useEscKey){
 			// Add event for the esc key
 			document.addEvent('keydown', function(e){
-				if (e.key == 'esc') this.close();
+				if (e.key == 'esc'){ this.close(); }
 			}.bind(this));
 		}
 
 		this.addEvent('hide', function(){
-			if (options.destroyOnHide) this.destroy();
+			if (options.destroyOnHide){ this.destroy(); }
 		}.bind(this));
 
 		this.fireEvent('initialize', this.wrapper);
@@ -134,15 +134,15 @@ var MooDialog = new Class({
 
 	setContent: function(){
 		var content = Array.from(arguments);
-		if (content.length == 1) content = content[0];
+		if (content.length == 1){ content = content[0]; }
 
 		this.content.empty();
 
 		var type = typeOf(content);
-		if (['string', 'number'].contains(type)) this.content.set('text', content);
-		else this.content.adopt(content);
+		if (['string', 'number'].contains(type)){ this.content.set('text', content); }
+		else{ this.content.adopt(content); }
 
-    if (this.options.autosize) this.computePosition();
+    if (this.options.autosize){ this.computePosition(); }
 
 		this.fireEvent('contentChange', this.content);
 
@@ -206,7 +206,7 @@ var MooDialog = new Class({
       left: x, top: y
 		});
 		return this;
-	},
+	}
 
 });
 

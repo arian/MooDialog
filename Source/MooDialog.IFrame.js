@@ -23,6 +23,7 @@ MooDialog.IFrame = new Class({
     
     this.iframe = new IFrame({
       src: url,
+      name: this.options.name || 'moodialog-iframe',
       frameborder: 0,
       scrolling: this.options.useScrollBar ? 'auto' : 'no'
     });
@@ -32,6 +33,6 @@ MooDialog.IFrame = new Class({
       });
     }
 		this.setContent(this.iframe);
-		if (this.options.autoOpen) this.open();
+		if (this.options.autoOpen){ this.open(); }
   }
 });
