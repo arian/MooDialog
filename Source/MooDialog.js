@@ -25,7 +25,6 @@ var MooDialog = new Class({
 		closeButton:   true,
     // Autosize options
     autosize:      true,
-		offset:        { x: 0, y: 0 },
     scale:         'max', // min, max or a float between 0 and 1
     // Events
 		onInitialize: function(){
@@ -108,25 +107,18 @@ var MooDialog = new Class({
 		if (['string', 'number'].contains(type)){ this.content.set('text', content); }
 		else{ this.content.adopt(content); }
 
-    if (this.options.autosize)
-    {
-      this.setSize();
-      this.center();
-    }
-
 		this.fireEvent('contentChange', this.content);
 
 		return this;
 	},
 
 	open: function(){
-    if (this.options.autosize)
-    {
-      this.setSize();
-      this.center();
-    }
 		this.fireEvent('beforeOpen', this.wrapper).fireEvent('open');
 		this.opened = true;
+    if (this.options.autosize)
+    {
+      this.autosize();
+    }
 		return this;
 	},
 
@@ -144,7 +136,7 @@ var MooDialog = new Class({
 		return this.wrapper;
 	},
 
-  setSize: function()
+  autosize: function()
   {
     size = {};
     // Autosize stuff
@@ -167,19 +159,12 @@ var MooDialog = new Class({
       'width': size.x, 'height': size.y
     });
     this.wrapper.setStyles({
-      'width': size.x, 'height': size.y
-    });
-  },
-
-  center: function()
-  {
-    var size = this.wrapper.getSize();
-    this.wrapper.setStyles({
+      'width': size.x, 'height': size.y,
       'margin-left': - size.x/2,
       'margin-top': - size.y/2
     });
+    return this;
   }
-
 
 });
 

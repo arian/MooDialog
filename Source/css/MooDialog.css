@@ -2,7 +2,7 @@
 
 .MooDialog {
 	position: fixed;
-  overflow: hidden;
+  overflow: visible;
 	width: 300px;
 	height: 100px;
 	top: 50%;
