@@ -23,10 +23,10 @@ And depending on the functionality you want you use, you have to include, for ex
 	<script src="../Source/MooDialog.Alert.js" type="text/javascript"></script>
 	<script src="../Source/MooDialog.Request.js" type="text/javascript"></script>
 
-If you want to use the standard fancy fade-in and fade-out effects, you should include Overlay.js and MooDialog.Fx.js in your page:
+If you want to use the standard fancy fade-in and fade-out effects, you should include Mask.Fx.js and MooDialog.Fx.js in your page:
 
 	#HTML
-	<script src="../Source/Overlay.js" type="text/javascript"></script>
+	<script src="../Source/Mask.Fx.js" type="text/javascript"></script>
 	<script src="../Source/MooDialog.Fx" type="text/javascript"></script>
 
 ### Packager
@@ -317,5 +317,5 @@ Requirements
 ------------
 
 * [MooTools Core 1.3](http://mootools.net/core)
-* [Overlay](http://mootools.net/forge/p/overlay) (included by default)
+* [Mask.Fx](http://mootools.net/forge/p/mask_fx) (by default is included the Zweer's version of this plugin: https://github.com/Zweer/Mask.Fx) (this plugin requires More/Mask)
 
