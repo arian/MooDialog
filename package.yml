@@ -20,4 +20,4 @@ sources:
   - "Source/MooDialog.IFrame.js"
   - "Source/MooDialog.Prompt.js"
   - "Source/MooDialog.Request.js"
-  - "Source/Overlay.js"
+  - "Source/Mask.Fx.js"
