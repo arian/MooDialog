@@ -93,3 +93,7 @@
 .MooDialog .MooDialogError {
 	background: url(dialog-error.png) no-repeat;
 }
+
+.MooDialogMask {
+	background: #111;
+}
