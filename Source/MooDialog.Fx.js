@@ -4,7 +4,7 @@ name: MooDialog.Fx
 description: Overwrite the default events so the Dialogs are using Fx on open and close
 authors: Arian Stolwijk
 license: MIT-style license
-requires: [Cores/Fx.Tween, Overlay]
+requires: [Core/Fx.Tween, Overlay]
 provides: MooDialog.Fx
 ...
 */
