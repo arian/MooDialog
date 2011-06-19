@@ -4,7 +4,7 @@ name: MooDialog
 description: The base class of MooDialog
 authors: Arian Stolwijk
 license:  MIT-style license
-requires: [Core/Class, Core/Element, Core/Element.Styles, Core/Element.Event]
+requires: [Core/Class, Core/Element, Core/Element.Style, Core/Element.Event]
 provides: [MooDialog, Element.MooDialog]
 ...
 */
