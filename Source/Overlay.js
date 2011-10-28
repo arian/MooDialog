@@ -26,11 +26,11 @@ var Overlay = new Class({
 		duration: 500,
 		opacity: 0.5,
 		zIndex: 5000/*,
-		onClick: $empty,
-		onClose: $empty,
-		onHide: $empty,
-		onOpen: $empty,
-		onShow: $empty
+		onClick: function(){},
+		onClose: function(){},
+		onHide: function(){},
+		onOpen: function(){},
+		onShow: function(){}
 		*/
 	},
 
@@ -52,15 +52,15 @@ var Overlay = new Class({
 	},
 
 	build: function(){
-	  this.overlay = new Element('div', {
+		this.overlay = new Element('div', {
 			id: this.options.id,
-			opacity: 0,
 			styles: {
 				position: (Browser.ie6) ? 'absolute' : 'fixed',
 				background: this.options.color,
 				left: 0,
 				top: 0,
-				'z-index': this.options.zIndex
+				'z-index': this.options.zIndex,
+				opacity: 0
 			}
 		}).inject(this.container);
 		this.tween = new Fx.Tween(this.overlay, {
@@ -68,7 +68,7 @@ var Overlay = new Class({
 			link: 'cancel',
 			property: 'opacity'
 		});
-	 return this;
+		return this;
 	}.protect(),
 
 	attach: function(){
@@ -78,7 +78,7 @@ var Overlay = new Class({
 			onStart: this.bound.tweenStart,
 			onComplete: this.bound.tweenComplete
 		});
-	 return this;
+		return this;
 	},
 
 	detach: function(){
@@ -98,13 +98,15 @@ var Overlay = new Class({
 	tweenStart: function(){
 		this.overlay.setStyles({
 			width: '100%',
-			height: this.container.getScrollSize().y
+			height: this.container.getScrollSize().y,
+			visibility: 'visible'
 		});
-	 return this;
+		return this;
 	},
 
 	tweenComplete: function(){
-		this.fireEvent(this.overlay.get('opacity') == this.options.opacity ? 'show' : 'hide');
+		var event = this.overlay.getStyle('opacity') == this.options.opacity ? 'show' : 'hide';
+		if (event == 'hide') this.overlay.setStyle('visibility', 'hidden');
 		return this;
 	},
 
