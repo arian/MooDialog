@@ -70,7 +70,7 @@ In every last parameter you can set the following options.
 - scroll: (*boolean*, defaults to `true`) This will use the `scroll` event to simulate the `position: fixed` css property in IE6
 - forceScroll: (*boolean*, defaults to `false`) This will force other browsers to use the `scroll` window event.
 - useEscKey: (*boolean*, defaults to `true`) Use the esc key to close the dialog
-- destroyOnClose: (*boolean*, defaults to `true`) Fire the MooDialog.dispose() method after closing the dialog to dispose the dialog from the DOM
+- destroyOnHide: (*boolean*, defaults to `true`) Fire the MooDialog.dispose() method after closing the dialog to dispose the dialog from the DOM
 - autoOpen: (*boolean*, defaults to `false`) This will automatically open the dialog for the Alert, Confirm, Error, IFrame, Prompt and Request subclasses
 - closeButton: (*boolean*, defaults to `true`) Should it diplay a close button
 
