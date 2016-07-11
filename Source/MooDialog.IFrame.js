@@ -20,14 +20,14 @@ MooDialog.IFrame = new Class({
 
 	initialize: function(url, options){
 		this.parent(options);
-
-		this.setContent(
-			new Element('iframe', {
-				src: url,
-				frameborder: 0,
-				scrolling: this.options.useScrollBar ? 'auto' : 'no'
-			})
-		);
-		if (this.options.autoOpen) this.open();
-    }
+    
+    this.iframe = new IFrame({
+      src: url,
+      name: this.options.name || 'moodialog-iframe',
+      frameborder: 0,
+      scrolling: this.options.useScrollBar ? 'auto' : 'no'
+    });
+		this.setContent(this.iframe);
+		if (this.options.autoOpen){ this.open(); }
+  }  
 });

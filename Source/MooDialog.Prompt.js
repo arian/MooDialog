@@ -23,7 +23,7 @@ MooDialog.Prompt = new Class({
 
 	initialize: function(msg, fn, options){
 		this.parent(options);
-		if (!fn) fn = function(){};
+		if (!fn){ fn = function(){}; }
 
 		var textInput = new Element('input.textInput', {type: 'text', value: this.options.defaultValue}),
 			submitButton = new Element('input[type=submit]', {value: this.options.okText}),
@@ -39,10 +39,13 @@ MooDialog.Prompt = new Class({
 			new Element('p.' + this.options.textPClass, {text: msg}),
 			new Element('form.buttons', {events: formEvents}).adopt(textInput, submitButton)
 		);
-		if (this.options.autoOpen) this.open();
+		if (this.options.autoOpen){ this.open(); }
 
-		if (this.options.focus) this.addEvent('show', function(){
-			textInput.focus();
-		});
+		if (this.options.focus)
+    {
+      this.addEvent('show', function(){
+			  textInput.focus();
+		  });
+    }
 	}
 });

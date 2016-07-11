@@ -15,14 +15,18 @@ var MooDialog = new Class({
 	Implements: [Options, Events],
 
 	options: {
-		'class': 'MooDialog',
-		title: null,
-		scroll: true, // IE
-		forceScroll: false,
-		useEscKey: true,
+		'class':       'MooDialog',
+		title:         null,
+		scroll:        true, // IE
+		forceScroll:   false,
+		useEscKey:     true,
 		destroyOnHide: true,
-		autoOpen: true,
-		closeButton: true,
+		autoOpen:      true,
+		closeButton:   true,
+    // Autosize options
+    autosize:      true,
+    scale:         'max', // min, max or a float between 0 and 1
+    // Events
 		onInitialize: function(){
 			this.wrapper.setStyle('display', 'none');
 		},
@@ -46,29 +50,32 @@ var MooDialog = new Class({
 		this.setOptions(options);
 		this.options.inject = this.options.inject || document.body;
 		options = this.options;
-
-		var wrapper = this.wrapper = new Element('div.' + options['class'].replace(' ', '.')).inject(options.inject);
-		this.content = new Element('div.content').inject(wrapper);
+    
+		this.wrapper = new Element(
+      'div.' + options['class'].replace(' ', '.')
+    );
+		this.content = new Element('div.content').inject(this.wrapper);
 
 		if (options.title){
-			this.title = new Element('div.title').set('text', options.title).inject(wrapper);
-			wrapper.addClass('MooDialogTitle');
+			this.title = new Element('div.title').set('text', options.title).inject(this.wrapper);
+			this.wrapper.addClass('MooDialogTitle');
 		}
 
 		if (options.closeButton){
 			this.closeButton = new Element('a.close', {
 				events: {click: this.close.bind(this)}
-			}).inject(wrapper);
+			}).inject(this.wrapper);
 		}
 
+    this.wrapper.inject(options.inject);
 
 		/*<ie6>*/// IE 6 scroll
 		if ((options.scroll && Browser.ie6) || options.forceScroll){
-			wrapper.setStyle('position', 'absolute');
-			var position = wrapper.getPosition(options.inject);
+			this.wrapper.setStyle('position', 'absolute');
+			var position = this.wrapper.getPosition(options.inject);
 			window.addEvent('scroll', function(){
 				var scroll = document.getScroll();
-				wrapper.setPosition({
+				this.wrapper.setPosition({
 					x: position.x + scroll.x,
 					y: position.y + scroll.y
 				});
@@ -79,26 +86,26 @@ var MooDialog = new Class({
 		if (options.useEscKey){
 			// Add event for the esc key
 			document.addEvent('keydown', function(e){
-				if (e.key == 'esc') this.close();
+				if (e.key == 'esc'){ this.close(); }
 			}.bind(this));
 		}
 
 		this.addEvent('hide', function(){
-			if (options.destroyOnHide) this.destroy();
+			if (options.destroyOnHide){ this.destroy(); }
 		}.bind(this));
 
-		this.fireEvent('initialize', wrapper);
+		this.fireEvent('initialize', this.wrapper);
 	},
 
 	setContent: function(){
 		var content = Array.from(arguments);
-		if (content.length == 1) content = content[0];
+		if (content.length == 1){ content = content[0]; }
 
 		this.content.empty();
 
 		var type = typeOf(content);
-		if (['string', 'number'].contains(type)) this.content.set('text', content);
-		else this.content.adopt(content);
+		if (['string', 'number'].contains(type)){ this.content.set('text', content); }
+		else{ this.content.adopt(content); }
 
 		this.fireEvent('contentChange', this.content);
 
@@ -108,6 +115,10 @@ var MooDialog = new Class({
 	open: function(){
 		this.fireEvent('beforeOpen', this.wrapper).fireEvent('open');
 		this.opened = true;
+    if (this.options.autosize)
+    {
+      this.autosize();
+    }
 		return this;
 	},
 
@@ -123,7 +134,37 @@ var MooDialog = new Class({
 
 	toElement: function(){
 		return this.wrapper;
-	}
+	},
+
+  autosize: function()
+  {
+    size = {};
+    // Autosize stuff
+    if(this.options.scale == 'max' || this.options.scale > 0.85)
+    {
+      size.x = window.getSize().x * 0.85;
+      size.y = window.getSize().y * 0.85;
+    }
+    else if(0 < this.options.scale  && this.options.scale <= 0.85)
+    {
+      size.x = window.getSize().x * this.options.scale;
+      size.y = window.getSize().y * this.options.scale;
+    }
+    else if(this.options.scale == 'min' || this.options.scale === 0)
+    {
+      size.x = 'auto';
+      size.y = 'auto';
+    }
+    this.content.setStyles({
+      'width': size.x, 'height': size.y
+    });
+    this.wrapper.setStyles({
+      'width': size.x, 'height': size.y,
+      'margin-left': - size.x/2,
+      'margin-top': - size.y/2
+    });
+    return this;
+  }
 
 });
 

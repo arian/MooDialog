@@ -84,8 +84,8 @@ var Overlay = new Class({
 	detach: function(){
 		var args = Array.prototype.slice.call(arguments);
 		args.each(function(item){
-			if(item == 'window') window.removeEvents(this.bound.window);
-			if(item == 'overlay') this.overlay.removeEvent('click', this.bound.overlayClick);
+			if(item == 'window'){ window.removeEvents(this.bound.window); }
+			if(item == 'overlay'){ this.overlay.removeEvent('click', this.bound.overlayClick); }
 		}, this);
 		return this;
 	},
@@ -130,7 +130,7 @@ var Overlay = new Class({
 
 	scroll: function(){
 		this.fireEvent('scroll');
-		if (Browser.ie6) this.overlay.setStyle('left', window.getScroll().x);
+		if (Browser.ie6){ this.overlay.setStyle('left', window.getScroll().x); }
 		return this;
 	}
 

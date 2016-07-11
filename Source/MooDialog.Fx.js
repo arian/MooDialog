@@ -23,10 +23,13 @@ MooDialog.implement('options', {
 		this.overlay = new Overlay(this.options.inject, {
 			duration: this.options.duration
 		});
-		if (this.options.closeOnOverlayClick) this.overlay.addEvent('click', this.close.bind(this));
+		if (this.options.closeOnOverlayClick)
+    {
+      this.overlay.addEvent('click', this.close.bind(this));
+    }
 
 		this.addEvent('hide', function(){
-			if (this.options.destroyOnHide) this.overlay.overlay.destroy();
+			if (this.options.destroyOnHide){ this.overlay.overlay.destroy(); }
 		}.bind(this));
 	},
 
